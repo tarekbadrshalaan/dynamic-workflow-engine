@@ -2,7 +2,7 @@ package benchmarks
 
 import (
 	"context"
-	"dew/controller"
+	"dwf/controller"
 	"testing"
 )
 
@@ -75,7 +75,7 @@ func BenchmarkAdminForceChangeState(b *testing.B) {
 go test -bench=BenchmarkAdminForceChangeState -benchmem
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkAdminForceChangeState/Ready-Bounty-8         	 4508310	       229 ns/op	     112 B/op	       5 allocs/op
 BenchmarkAdminForceChangeState/Bounty-Riding-8        	 5244963	       223 ns/op	     112 B/op	       5 allocs/op
 BenchmarkAdminForceChangeState/Riding-Battery-Low-8   	 4951862	       229 ns/op	     112 B/op	       5 allocs/op
@@ -85,7 +85,7 @@ BenchmarkAdminForceChangeState/Bounty-Dropped-8       	 5210500	       225 ns/op
 BenchmarkAdminForceChangeState/Dropped-Battery-Low-8  	 5300404	       239 ns/op	     112 B/op	       5 allocs/op
 BenchmarkAdminForceChangeState/Battery-Low-Ready-8    	 5347808	       232 ns/op	     112 B/op	       5 allocs/op
 PASS
-ok  	dew/controller/benchmarks	11.262s
+ok  	dwf/controller/benchmarks	11.262s
 
 */
 

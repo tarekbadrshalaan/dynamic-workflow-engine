@@ -2,7 +2,7 @@ package benchmarks
 
 import (
 	"context"
-	"dew/controller"
+	"dwf/controller"
 	"testing"
 )
 
@@ -71,7 +71,7 @@ func BenchmarkChangeStateVoidhandlersUser(b *testing.B) {
 go test -bench=BenchmarkChangeStateVoidhandlersUser -benchmem
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkChangeStateVoidhandlersUser/state-Ready-8         	 1930252	       644 ns/op	     240 B/op	       9 allocs/op
 BenchmarkChangeStateVoidhandlersUser/state-Riding-8        	 1835732	       623 ns/op	     240 B/op	       9 allocs/op
 BenchmarkChangeStateVoidhandlersUser/state-Battery-Low-8   	 1961193	       637 ns/op	     240 B/op	       9 allocs/op
@@ -79,7 +79,7 @@ BenchmarkChangeStateVoidhandlersUser/state-Bounty-8        	 1949448	       673 
 BenchmarkChangeStateVoidhandlersUser/state-Collected-8     	 1660357	       698 ns/op	     240 B/op	       9 allocs/op
 BenchmarkChangeStateVoidhandlersUser/state-Dropped-8       	 1948905	       627 ns/op	     240 B/op	       9 allocs/op
 PASS
-ok  	dew/controller/benchmarks	13.476s
+ok  	dwf/controller/benchmarks	13.476s
 */
 
 // go test -bench=BenchmarkChangeStateNonVoidhandlersUser -benchmem
@@ -126,12 +126,12 @@ func BenchmarkChangeStateNonVoidhandlersUser(b *testing.B) {
 go test -bench=BenchmarkChangeStateNonVoidhandlersUser -benchmem
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkChangeStateNonVoidhandlersUser/Ready-Unknown-8         	 3053121	       377 ns/op	     128 B/op	       5 allocs/op
 BenchmarkChangeStateNonVoidhandlersUser/Ready-Bounty-8          	 2640531	       453 ns/op	     128 B/op	       5 allocs/op
 BenchmarkChangeStateNonVoidhandlersUser/Riding-Battery-Low-8    	 3930580	       316 ns/op	     128 B/op	       5 allocs/op
 PASS
-ok  	dew/controller/benchmarks	4.763s
+ok  	dwf/controller/benchmarks	4.763s
 */
 
 /*
@@ -204,11 +204,11 @@ func BenchmarkChangeStateNonVoidhandlersLogic(b *testing.B) {
 go test -bench=BenchmarkChangeStateNonVoidhandlersLogic -benchmem
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkChangeStateNonVoidhandlersLogic/Ready-Unknown-8         	     100	  12224754 ns/op	    1384 B/op	      30 allocs/op
 BenchmarkChangeStateNonVoidhandlersLogic/Ready-Bounty-8          	     100	  12193880 ns/op	    1184 B/op	      25 allocs/op
 BenchmarkChangeStateNonVoidhandlersLogic/UnknownVSBounty-8       	     100	  12166997 ns/op	    1308 B/op	      29 allocs/op
 BenchmarkChangeStateNonVoidhandlersLogic/Riding-Battery-Low-8    	     100	  12091766 ns/op	     881 B/op	      16 allocs/op
 PASS
-ok  	dew/controller/benchmarks	4.972s
+ok  	dwf/controller/benchmarks	4.972s
 */

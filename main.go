@@ -1,10 +1,10 @@
 package main
 
 import (
-	"dew/config"
-	"dew/controller"
-	"dew/logger"
-	"dew/playground"
+	"dwf/config"
+	"dwf/controller"
+	"dwf/logger"
+	"dwf/playground"
 )
 
 func main() {

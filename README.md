@@ -69,7 +69,7 @@ each vehicle contain **state** and this state controlled by workflow has been se
 
 ### **states flow** strategy
 ```
-dew state flow builded to be dynamic and configurable, that's mean your work flow can be increase, decrease ,change states position without touch the code.
+dwf state flow builded to be dynamic and configurable, that's mean your work flow can be increase, decrease ,change states position without touch the code.
 ```
 - `state` is the base unit to the flow system.
 - each `state` contains it's name and next available states.

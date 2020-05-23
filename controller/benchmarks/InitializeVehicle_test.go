@@ -2,7 +2,7 @@ package benchmarks
 
 import (
 	"context"
-	"dew/controller"
+	"dwf/controller"
 	"testing"
 )
 
@@ -77,7 +77,7 @@ func BenchmarkInitializeVehicle(b *testing.B) {
 go test -bench=BenchmarkInitializeVehicle -benchmem
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkInitializeVehicle/Ready-8         	 1000000	      1412 ns/op	     451 B/op	       7 allocs/op
 BenchmarkInitializeVehicle/Riding-8        	 1000000	      1713 ns/op	     444 B/op	       6 allocs/op
 BenchmarkInitializeVehicle/Battery-Low-8   	 1000000	      1835 ns/op	     450 B/op	       7 allocs/op
@@ -86,7 +86,7 @@ BenchmarkInitializeVehicle/Collected-8     	 1000000	      1835 ns/op	     442 B
 BenchmarkInitializeVehicle/Dropped-8       	 1000000	      1564 ns/op	     455 B/op	       6 allocs/op
 BenchmarkInitializeVehicle/Unknown-8       	 1000000	      1495 ns/op	     430 B/op	       6 allocs/op
 PASS
-ok  	dew/controller/benchmarks	86.777s
+ok  	dwf/controller/benchmarks	86.777s
 */
 
 /* result from go1.14
@@ -94,7 +94,7 @@ ok  	dew/controller/benchmarks	86.777s
 go test -bench=BenchmarkInitializeVehicle -benchmem -benchtime=10000x
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkInitializeVehicle/Ready-8         	   10000	       729 ns/op	     446 B/op	       7 allocs/op
 BenchmarkInitializeVehicle/Riding-8        	   10000	       738 ns/op	     441 B/op	       7 allocs/op
 BenchmarkInitializeVehicle/Battery-Low-8   	   10000	       665 ns/op	     432 B/op	       7 allocs/op
@@ -103,7 +103,7 @@ BenchmarkInitializeVehicle/Collected-8     	   10000	       525 ns/op	     423 B
 BenchmarkInitializeVehicle/Dropped-8       	   10000	       539 ns/op	     440 B/op	       6 allocs/op
 BenchmarkInitializeVehicle/Unknown-8       	   10000	       525 ns/op	     462 B/op	       7 allocs/op
 PASS
-ok  	dew/controller/benchmarks	0.172s
+ok  	dwf/controller/benchmarks	0.172s
 */
 
 //!-bench

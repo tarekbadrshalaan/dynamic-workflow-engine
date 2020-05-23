@@ -1,8 +1,8 @@
 package benchmarks
 
 import (
-	"dew/controller"
-	"dew/logger"
+	"dwf/controller"
+	"dwf/logger"
 	"os"
 	"testing"
 )
@@ -32,7 +32,7 @@ func TestMain(m *testing.M) {
 go test -bench . -benchmem
 goos: linux
 goarch: amd64
-pkg: dew/controller/benchmarks
+pkg: dwf/controller/benchmarks
 BenchmarkAdminForceChangeState/Ready-Bounty-8         	 5025529	       224 ns/op	     112 B/op	       5 allocs/op
 BenchmarkAdminForceChangeState/Bounty-Riding-8        	 5444305	       241 ns/op	     112 B/op	       5 allocs/op
 BenchmarkAdminForceChangeState/Riding-Battery-Low-8   	 5297530	       226 ns/op	     112 B/op	       5 allocs/op
@@ -65,6 +65,6 @@ BenchmarkChangeStateNonVoidhandlersUser/Riding-Battery-Low-8     	 3792481	     
 // BenchmarkInitializeVehicle/Unknown-8                             	 1000000	      1587 ns/op	     438 B/op	       6 allocs/op
 
 PASS
-ok  	dew/controller/benchmarks	28.050s
+ok  	dwf/controller/benchmarks	28.050s
 
 */

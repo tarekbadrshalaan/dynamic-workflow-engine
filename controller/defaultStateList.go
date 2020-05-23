@@ -7,20 +7,20 @@ func BuildDefaultStateList() {
 	stateList["Ready"] = &State{
 		Name: "Ready",
 		AvailableStates: map[string]availableState{
-			"Riding": availableState{
+			"Riding": {
 				Name:     "Riding",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{USER: true, HUNTER: true, ADMIN: true, SYSTEM: true},
 			},
-			"Unknown": availableState{
+			"Unknown": {
 				Name:     "Unknown",
 				funcName: "after48H",
 				autoRun:  true,
 				priority: 0,
 				users:    map[int]bool{SYSTEM: true},
 			},
-			"Bounty": availableState{
+			"Bounty": {
 				Name:     "Bounty",
 				funcName: "after930PM",
 				autoRun:  true,
@@ -33,13 +33,13 @@ func BuildDefaultStateList() {
 	stateList["Riding"] = &State{
 		Name: "Riding",
 		AvailableStates: map[string]availableState{
-			"Ready": availableState{
+			"Ready": {
 				Name:     "Ready",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{USER: true, HUNTER: true, ADMIN: true, SYSTEM: true},
 			},
-			"Battery-Low": availableState{
+			"Battery-Low": {
 				Name:     "Battery-Low",
 				funcName: "batteryLow",
 				autoRun:  true,
@@ -52,7 +52,7 @@ func BuildDefaultStateList() {
 	stateList["Battery-Low"] = &State{
 		Name: "Battery-Low",
 		AvailableStates: map[string]availableState{
-			"Bounty": availableState{
+			"Bounty": {
 				Name:     "Bounty",
 				funcName: "voidHandler",
 				autoRun:  true,
@@ -64,7 +64,7 @@ func BuildDefaultStateList() {
 	stateList["Bounty"] = &State{
 		Name: "Bounty",
 		AvailableStates: map[string]availableState{
-			"Collected": availableState{
+			"Collected": {
 				Name:     "Collected",
 				funcName: "voidHandler",
 				autoRun:  false,
@@ -76,7 +76,7 @@ func BuildDefaultStateList() {
 	stateList["Collected"] = &State{
 		Name: "Collected",
 		AvailableStates: map[string]availableState{
-			"Dropped": availableState{
+			"Dropped": {
 				Name:     "Dropped",
 				funcName: "voidHandler",
 				autoRun:  false,
@@ -88,7 +88,7 @@ func BuildDefaultStateList() {
 	stateList["Dropped"] = &State{
 		Name: "Dropped",
 		AvailableStates: map[string]availableState{
-			"Ready": availableState{
+			"Ready": {
 				Name:     "Ready",
 				funcName: "voidHandler",
 				autoRun:  false,

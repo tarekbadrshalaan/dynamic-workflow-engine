@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"dew/controller"
-	"dew/logger"
+	"dwf/controller"
+	"dwf/logger"
 	"os"
 	"testing"
 )
