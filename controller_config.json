@@ -1,0 +1,126 @@
+{
+    "states_list": [
+        {
+            "name": "Ready",
+            "available_states": [
+                {
+                    "name": "Riding",
+                    "function": "voidHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "Unknown",
+                    "function": "after48H",
+                    "auto_run": true,
+                    "priority": 0,
+                    "users": [
+                        "System"
+                    ]
+                },
+                {
+                    "name": "Bounty",
+                    "function": "after930PM",
+                    "auto_run": true,
+                    "priority": 1,
+                    "users": [
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Riding",
+            "available_states": [
+                {
+                    "name": "Ready",
+                    "function": "voidHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "Battery-Low",
+                    "function": "batteryLow",
+                    "auto_run": true,
+                    "priority": 0,
+                    "users": [
+                        "Vehicle",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Battery-Low",
+            "available_states": [
+                {
+                    "name": "Bounty",
+                    "function": "voidHandler",
+                    "auto_run": true,
+                    "users": [
+                        "Vehicle",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Bounty",
+            "available_states": [
+                {
+                    "name": "Collected",
+                    "function": "voidHandler",
+                    "auto_run": false,
+                    "users": [
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Collected",
+            "available_states": [
+                {
+                    "name": "Dropped",
+                    "function": "voidHandler",
+                    "auto_run": false,
+                    "users": [
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Dropped",
+            "available_states": [
+                {
+                    "name": "Ready",
+                    "function": "voidHandler",
+                    "auto_run": false,
+                    "users": [
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Unknown"
+        }
+    ]
+}
