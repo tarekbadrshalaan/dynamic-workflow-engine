@@ -1,0 +1,330 @@
+{
+    "states_list": [
+        {
+            "name": "insertCard",
+            "available_states": [
+                {
+                    "name": "isValidCard",
+                    "function": "isValidCardHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "isValidCard",
+            "available_states": [
+                {
+                    "name": "notValid",
+                    "function": "notValidHandler",
+                    "auto_run": true,
+                    "priority": 1,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "validCard",
+                    "function": "validCardHandler",
+                    "auto_run": true,
+                    "priority": 0,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "notValid",
+            "available_states": [
+                {
+                    "name": "printNotValid",
+                    "function": "printNotValidHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "printNotValid",
+            "available_states": [
+                {
+                    "name": "end",
+                    "function": "endHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "validCard",
+            "available_states": [
+                {
+                    "name": "showPinScreen",
+                    "function": "showPinScreenHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "showPinScreen",
+            "available_states": [
+                {
+                    "name": "validatePin",
+                    "function": "validatePinHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "validatePin",
+            "available_states": [
+                {
+                    "name": "validPin",
+                    "function": "validPinHandler",
+                    "auto_run": true,
+                    "priority": 0,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "inValidPin",
+                    "function": "inValidPinHandler",
+                    "auto_run": true,
+                    "priority": 1,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "inValidPin",
+            "available_states": [
+                {
+                    "name": "showPinScreen",
+                    "function": "showPinScreenHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "validPin",
+            "available_states": [
+                {
+                    "name": "chooseAction",
+                    "function": "chooseActionHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "chooseAction",
+            "available_states": [
+                {
+                    "name": "chooseMoney",
+                    "function": "chooseMoneyHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "showAccountBalance",
+                    "function": "showAccountBalanceHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "end",
+                    "function": "endHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "chooseMoney",
+            "available_states": [
+                {
+                    "name": "showMoneyScreen",
+                    "function": "showMoneyScreenHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "showAccountBalance",
+            "available_states": [
+                {
+                    "name": "chooseAction",
+                    "function": "chooseActionHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "end",
+                    "function": "endHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "showMoneyScreen",
+            "available_states": [
+                {
+                    "name": "sufficientFund",
+                    "function": "sufficientFundHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "end",
+                    "function": "endHandler",
+                    "auto_run": false,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "sufficientFund",
+            "available_states": [
+                {
+                    "name": "relaseMoney",
+                    "function": "relaseMoneyHandler",
+                    "auto_run": true,
+                    "priority": 0,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                },
+                {
+                    "name": "showMoneyScreen",
+                    "function": "showMoneyScreenHandler",
+                    "auto_run": true,
+                    "priority": 1,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "relaseMoney",
+            "available_states": [
+                {
+                    "name": "chooseAction",
+                    "function": "chooseActionHandler",
+                    "auto_run": true,
+                    "users": [
+                        "User",
+                        "Hunter",
+                        "Admin",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "end"
+        }
+    ]
+}

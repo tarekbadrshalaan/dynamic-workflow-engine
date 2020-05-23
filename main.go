@@ -21,19 +21,19 @@ func main() {
 
 	// b> use json configuration file to build state list
 	confstateList := &controller.Configuration{}
-	config.Configuration("controller_config.json", confstateList)
+	config.Configuration("exatm/controller_config.json", confstateList)
 	err := controller.BuildStates(confstateList)
 	if err != nil {
 		logger.Fatal(err)
 	}
 	/* controller initialize end */
 
-	vi, err := playground.Dynamic()
-	if err != nil {
-		logger.Error(err)
-	}
-	viState := vi.State()
-	logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
+	// vi, err := playground.Dynamic()
+	// if err != nil {
+	// 	logger.Error(err)
+	// }
+	// viState := vi.State()
+	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
 
 	// vi, err = playground.PlayFullVehicleStateCycle()
 	// if err != nil {
@@ -62,5 +62,12 @@ func main() {
 	// }
 	// viState = vi.State()
 	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
+
+	card, err := playground.PlayFullATMStateCycle()
+	if err != nil {
+		logger.Error(err)
+	}
+	cState := card.State()
+	logger.Infof("Card id (%v) the final state (%v)", card.ID, cState)
 
 }

@@ -1,0 +1,27 @@
+insertcard -> isvalid card
+isvalidcard -> insertpincode, holdcard
+holdcard-> end
+insertpincode -> chooseaction
+chooseaction -> chooseMoney, showaccountbalance, end
+showaccountbalance -> chooseaction
+chooseMoney -> sufficientFund 
+sufficientFund -> chooseaction, relaseMoney
+relaseMoney -> chooseaction
+
+---
+
+insertCard -> (isValidCard, true)
+isValidCard -> (notValid, true) (validCard, true)
+notValid -> (PrintNotValid, true)
+PrintNotValid -> (end, true)
+validCard -> (showPinScreen, true)
+showPinScreen -> (validatePin, false)
+validatePin -> (validPin, true), (inValidPin, true)
+inValidPin -> (showPinScreen, true)
+validPin -> (chooseAction, true)
+chooseAction -> (chooseMoney, false), (showAccountBalance, false), (end,false)
+chooseMoney -> (showMoneyScreen, true)
+showAccountBalance -> (chooseAction, false),(end, false)
+showMoneyScreen -> (sufficientFund, false) (end, false)
+sufficientFund -> (relaseMoney, true), (showMoneyScreen, true)
+relaseMoney -> (chooseAction, true)

@@ -99,3 +99,93 @@ func (c *Card) Print() bool {
 	fmt.Println("============== hello from print status :) =====================")
 	return true
 }
+
+// IsValidCardHandler :
+func (c *Card) IsValidCardHandler() bool {
+	fmt.Println("IsValidCardHandler")
+	return true
+}
+
+// NotValidHandler :
+func (c *Card) NotValidHandler() bool {
+	fmt.Println("NotValidHandler")
+	return false
+}
+
+// ValidCardHandler :
+func (c *Card) ValidCardHandler() bool {
+	fmt.Println("ValidCardHandler")
+	return true
+}
+
+// PrintNotValidHandler :
+func (c *Card) PrintNotValidHandler() bool {
+	fmt.Println("PrintNotValidHandler")
+	return false
+}
+
+// ShowPinScreenHandler :
+func (c *Card) ShowPinScreenHandler() bool {
+	fmt.Println("ShowPinScreenHandler")
+	return true
+}
+
+// ValidatePinHandler :
+func (c *Card) ValidatePinHandler() bool {
+	fmt.Println("ValidatePinHandler")
+	return true
+}
+
+// ValidPinHandler :
+func (c *Card) ValidPinHandler() bool {
+	fmt.Println("ValidPinHandler")
+	return true
+}
+
+// InValidPinHandler :
+func (c *Card) InValidPinHandler() bool {
+	fmt.Println("InValidPinHandler")
+	return false
+}
+
+// ChooseActionHandler :
+func (c *Card) ChooseActionHandler() bool {
+	fmt.Println("ChooseActionHandler")
+	return true
+}
+
+// ChooseMoneyHandler :
+func (c *Card) ChooseMoneyHandler() bool {
+	fmt.Println("ChooseMoneyHandler")
+	return true
+}
+
+// ShowAccountBalanceHandler :
+func (c *Card) ShowAccountBalanceHandler() bool {
+	fmt.Println("ShowAccountBalanceHandler")
+	return true
+}
+
+// ShowMoneyScreenHandler :
+func (c *Card) ShowMoneyScreenHandler() bool {
+	fmt.Println("ShowMoneyScreenHandler")
+	return true
+}
+
+// SufficientFundHandler :
+func (c *Card) SufficientFundHandler() bool {
+	fmt.Println("SufficientFundHandler")
+	return true
+}
+
+// RelaseMoneyHandler :
+func (c *Card) RelaseMoneyHandler() bool {
+	fmt.Println("RelaseMoneyHandler")
+	return true
+}
+
+// EndHandler :
+func (c *Card) EndHandler() bool {
+	fmt.Println("EndHandler")
+	return true
+}

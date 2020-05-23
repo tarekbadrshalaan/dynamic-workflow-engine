@@ -109,7 +109,7 @@ func TestChangeStateVoidhandlersUser(t *testing.T) {
 					err := v.ChangeState(s.nextState, s.user)
 					if s.err != "" {
 						if s.err != err.Error() {
-							t.Errorf("expected error %v; got %v", s.err, err)
+							t.Errorf("expected %v; got %v", s.err, err)
 							return
 						}
 						return
@@ -178,7 +178,7 @@ func TestChangeStateNonVoidhandlersUser(t *testing.T) {
 					err := v.ChangeState(s.nextState, s.user)
 					if s.err != "" {
 						if s.err != err.Error() {
-							t.Errorf("expected error %v; got %v", s.err, err)
+							t.Errorf("expected %v; got %v", s.err, err)
 							return
 						}
 						return
@@ -212,52 +212,52 @@ func TestChangeStateToWrongState(t *testing.T) {
 			testname: "state-Ready",
 			state:    "Ready",
 			changeState: []changeState{
-				{"Battery-Low", controller.USER, "change statues from (Ready) to (Battery-Low) is not valid ERROR:nextState(Battery-Low) is not exist"},
-				{"Battery-Low", controller.HUNTER, "change statues from (Ready) to (Battery-Low) is not valid ERROR:nextState(Battery-Low) is not exist"},
-				{"Battery-Low", controller.ADMIN, "change statues from (Ready) to (Battery-Low) is not valid ERROR:nextState(Battery-Low) is not exist"},
-				{"Battery-Low", controller.SYSTEM, "change statues from (Ready) to (Battery-Low) is not valid ERROR:nextState(Battery-Low) is not exist"},
-				{"Battery-Low", controller.VEHICLE, "change statues from (Ready) to (Battery-Low) is not valid ERROR:nextState(Battery-Low) is not exist"},
+				{"Battery-Low", controller.USER, "change statues from (Ready) to (Battery-Low) is not valid ERROR:Status (Ready) does not have nextState(Battery-Low) is not exist"},
+				{"Battery-Low", controller.HUNTER, "change statues from (Ready) to (Battery-Low) is not valid ERROR:Status (Ready) does not have nextState(Battery-Low) is not exist"},
+				{"Battery-Low", controller.ADMIN, "change statues from (Ready) to (Battery-Low) is not valid ERROR:Status (Ready) does not have nextState(Battery-Low) is not exist"},
+				{"Battery-Low", controller.SYSTEM, "change statues from (Ready) to (Battery-Low) is not valid ERROR:Status (Ready) does not have nextState(Battery-Low) is not exist"},
+				{"Battery-Low", controller.VEHICLE, "change statues from (Ready) to (Battery-Low) is not valid ERROR:Status (Ready) does not have nextState(Battery-Low) is not exist"},
 
-				{"Collected", controller.USER, "change statues from (Ready) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.HUNTER, "change statues from (Ready) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.ADMIN, "change statues from (Ready) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.SYSTEM, "change statues from (Ready) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.VEHICLE, "change statues from (Ready) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
+				{"Collected", controller.USER, "change statues from (Ready) to (Collected) is not valid ERROR:Status (Ready) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.HUNTER, "change statues from (Ready) to (Collected) is not valid ERROR:Status (Ready) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.ADMIN, "change statues from (Ready) to (Collected) is not valid ERROR:Status (Ready) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.SYSTEM, "change statues from (Ready) to (Collected) is not valid ERROR:Status (Ready) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.VEHICLE, "change statues from (Ready) to (Collected) is not valid ERROR:Status (Ready) does not have nextState(Collected) is not exist"},
 
-				{"Dropped", controller.USER, "change statues from (Ready) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.HUNTER, "change statues from (Ready) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.ADMIN, "change statues from (Ready) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.SYSTEM, "change statues from (Ready) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.VEHICLE, "change statues from (Ready) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
+				{"Dropped", controller.USER, "change statues from (Ready) to (Dropped) is not valid ERROR:Status (Ready) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.HUNTER, "change statues from (Ready) to (Dropped) is not valid ERROR:Status (Ready) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.ADMIN, "change statues from (Ready) to (Dropped) is not valid ERROR:Status (Ready) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.SYSTEM, "change statues from (Ready) to (Dropped) is not valid ERROR:Status (Ready) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.VEHICLE, "change statues from (Ready) to (Dropped) is not valid ERROR:Status (Ready) does not have nextState(Dropped) is not exist"},
 			},
 		},
 		{
 			testname: "state-Riding",
 			state:    "Riding",
 			changeState: []changeState{
-				{"Unknown", controller.USER, "change statues from (Riding) to (Unknown) is not valid ERROR:nextState(Unknown) is not exist"},
-				{"Unknown", controller.HUNTER, "change statues from (Riding) to (Unknown) is not valid ERROR:nextState(Unknown) is not exist"},
-				{"Unknown", controller.ADMIN, "change statues from (Riding) to (Unknown) is not valid ERROR:nextState(Unknown) is not exist"},
-				{"Unknown", controller.SYSTEM, "change statues from (Riding) to (Unknown) is not valid ERROR:nextState(Unknown) is not exist"},
-				{"Unknown", controller.VEHICLE, "change statues from (Riding) to (Unknown) is not valid ERROR:nextState(Unknown) is not exist"},
+				{"Unknown", controller.USER, "change statues from (Riding) to (Unknown) is not valid ERROR:Status (Riding) does not have nextState(Unknown) is not exist"},
+				{"Unknown", controller.HUNTER, "change statues from (Riding) to (Unknown) is not valid ERROR:Status (Riding) does not have nextState(Unknown) is not exist"},
+				{"Unknown", controller.ADMIN, "change statues from (Riding) to (Unknown) is not valid ERROR:Status (Riding) does not have nextState(Unknown) is not exist"},
+				{"Unknown", controller.SYSTEM, "change statues from (Riding) to (Unknown) is not valid ERROR:Status (Riding) does not have nextState(Unknown) is not exist"},
+				{"Unknown", controller.VEHICLE, "change statues from (Riding) to (Unknown) is not valid ERROR:Status (Riding) does not have nextState(Unknown) is not exist"},
 
-				{"Bounty", controller.USER, "change statues from (Riding) to (Bounty) is not valid ERROR:nextState(Bounty) is not exist"},
-				{"Bounty", controller.HUNTER, "change statues from (Riding) to (Bounty) is not valid ERROR:nextState(Bounty) is not exist"},
-				{"Bounty", controller.ADMIN, "change statues from (Riding) to (Bounty) is not valid ERROR:nextState(Bounty) is not exist"},
-				{"Bounty", controller.SYSTEM, "change statues from (Riding) to (Bounty) is not valid ERROR:nextState(Bounty) is not exist"},
-				{"Bounty", controller.VEHICLE, "change statues from (Riding) to (Bounty) is not valid ERROR:nextState(Bounty) is not exist"},
+				{"Bounty", controller.USER, "change statues from (Riding) to (Bounty) is not valid ERROR:Status (Riding) does not have nextState(Bounty) is not exist"},
+				{"Bounty", controller.HUNTER, "change statues from (Riding) to (Bounty) is not valid ERROR:Status (Riding) does not have nextState(Bounty) is not exist"},
+				{"Bounty", controller.ADMIN, "change statues from (Riding) to (Bounty) is not valid ERROR:Status (Riding) does not have nextState(Bounty) is not exist"},
+				{"Bounty", controller.SYSTEM, "change statues from (Riding) to (Bounty) is not valid ERROR:Status (Riding) does not have nextState(Bounty) is not exist"},
+				{"Bounty", controller.VEHICLE, "change statues from (Riding) to (Bounty) is not valid ERROR:Status (Riding) does not have nextState(Bounty) is not exist"},
 
-				{"Collected", controller.USER, "change statues from (Riding) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.HUNTER, "change statues from (Riding) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.ADMIN, "change statues from (Riding) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.SYSTEM, "change statues from (Riding) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
-				{"Collected", controller.VEHICLE, "change statues from (Riding) to (Collected) is not valid ERROR:nextState(Collected) is not exist"},
+				{"Collected", controller.USER, "change statues from (Riding) to (Collected) is not valid ERROR:Status (Riding) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.HUNTER, "change statues from (Riding) to (Collected) is not valid ERROR:Status (Riding) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.ADMIN, "change statues from (Riding) to (Collected) is not valid ERROR:Status (Riding) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.SYSTEM, "change statues from (Riding) to (Collected) is not valid ERROR:Status (Riding) does not have nextState(Collected) is not exist"},
+				{"Collected", controller.VEHICLE, "change statues from (Riding) to (Collected) is not valid ERROR:Status (Riding) does not have nextState(Collected) is not exist"},
 
-				{"Dropped", controller.USER, "change statues from (Riding) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.HUNTER, "change statues from (Riding) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.ADMIN, "change statues from (Riding) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.SYSTEM, "change statues from (Riding) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
-				{"Dropped", controller.VEHICLE, "change statues from (Riding) to (Dropped) is not valid ERROR:nextState(Dropped) is not exist"},
+				{"Dropped", controller.USER, "change statues from (Riding) to (Dropped) is not valid ERROR:Status (Riding) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.HUNTER, "change statues from (Riding) to (Dropped) is not valid ERROR:Status (Riding) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.ADMIN, "change statues from (Riding) to (Dropped) is not valid ERROR:Status (Riding) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.SYSTEM, "change statues from (Riding) to (Dropped) is not valid ERROR:Status (Riding) does not have nextState(Dropped) is not exist"},
+				{"Dropped", controller.VEHICLE, "change statues from (Riding) to (Dropped) is not valid ERROR:Status (Riding) does not have nextState(Dropped) is not exist"},
 			},
 		},
 	}
@@ -272,7 +272,7 @@ func TestChangeStateToWrongState(t *testing.T) {
 					err := v.ChangeState(s.nextState, s.user)
 					if s.err != "" {
 						if s.err != err.Error() {
-							t.Errorf("expected error %v; got %v", s.err, err)
+							t.Errorf("expected %v; got %v", s.err, err)
 							return
 						}
 						return

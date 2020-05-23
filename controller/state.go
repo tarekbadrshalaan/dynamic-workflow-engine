@@ -39,7 +39,7 @@ func (s *State) ValidatechangeStatus(nextState string, usertype int) (Handler, *
 
 	availableState, ok := s.AvailableStates[ns.Name]
 	if !ok {
-		err := fmt.Errorf("nextState(%v) is not exist", ns.Name)
+		err := fmt.Errorf("Status (%v) does not have nextState(%v) is not exist", s.Name, ns.Name)
 		logger.Error(err)
 		return nil, nil, err
 	}
