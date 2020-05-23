@@ -1,4 +1,4 @@
-package atm
+package exatm
 
 import (
 	"context"

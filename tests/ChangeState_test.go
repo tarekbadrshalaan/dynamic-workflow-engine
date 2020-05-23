@@ -3,6 +3,7 @@ package tests
 import (
 	"context"
 	"dwf/controller"
+	"dwf/exvehicle"
 	"testing"
 	"time"
 
@@ -103,7 +104,7 @@ func TestChangeStateVoidhandlersUser(t *testing.T) {
 			for _, s := range tc.changeState {
 
 				t.Run(s.nextState+"-"+controller.UsersType[s.user], func(t *testing.T) {
-					v, _ := controller.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
+					v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
 					defer v.Terminate()
 					err := v.ChangeState(s.nextState, s.user)
 					if s.err != "" {
@@ -172,7 +173,7 @@ func TestChangeStateNonVoidhandlersUser(t *testing.T) {
 			for _, s := range tc.changeState {
 
 				t.Run(s.nextState+"-"+controller.UsersType[s.user], func(t *testing.T) {
-					v, _ := controller.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
+					v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
 					defer v.Terminate()
 					err := v.ChangeState(s.nextState, s.user)
 					if s.err != "" {
@@ -266,7 +267,7 @@ func TestChangeStateToWrongState(t *testing.T) {
 			for _, s := range tc.changeState {
 
 				t.Run(s.nextState+"-"+controller.UsersType[s.user], func(t *testing.T) {
-					v, _ := controller.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
+					v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
 					defer v.Terminate()
 					err := v.ChangeState(s.nextState, s.user)
 					if s.err != "" {
@@ -358,7 +359,7 @@ func TestChangeStateNonVoidhandlersLogic(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.testname, func(t *testing.T) {
-			v, _ := controller.InitializeVehicle(context.Background(), "vec1", tc.state, tc.BatteryLevel)
+			v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", tc.state, tc.BatteryLevel)
 			defer v.Terminate()
 			/* start mock time */
 			patch := monkey.Patch(time.Now, func() time.Time { return tc.timeNow })

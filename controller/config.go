@@ -90,3 +90,14 @@ func SetInternalStateList(states map[string]*State) {
 	// set internal states list.
 	internalStateList = states
 }
+
+// GetInternalStateList :
+func GetInternalStateList(status string) (*State, error) {
+	ns, ok := internalStateList[status]
+	if !ok { // check if the next state available in the system
+		err := fmt.Errorf("State (%v) is not exist", status)
+		logger.Error(err)
+		return nil, err
+	}
+	return ns, nil
+}

@@ -2,7 +2,7 @@ package tests
 
 import (
 	"context"
-	"dwf/controller"
+	"dwf/exvehicle"
 	"testing"
 )
 
@@ -85,7 +85,7 @@ func TestInitializeVehicle(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.testname, func(t *testing.T) {
-			v, err := controller.InitializeVehicle(context.Background(), tc.id, tc.state, tc.batteryPercentage)
+			v, err := exvehicle.InitializeVehicle(context.Background(), tc.id, tc.state, tc.batteryPercentage)
 			if tc.err != "" {
 				if tc.err != err.Error() {
 					t.Errorf("expected error %v; got %v", tc.err, err)

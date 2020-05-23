@@ -3,6 +3,7 @@ package benchmarks
 import (
 	"context"
 	"dwf/controller"
+	"dwf/exvehicle"
 	"testing"
 )
 
@@ -58,7 +59,7 @@ func BenchmarkChangeStateVoidhandlersUser(b *testing.B) {
 
 	for _, tc := range tt {
 		b.Run(tc.testname, func(b *testing.B) {
-			v, _ := controller.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
+			v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
 			defer v.Terminate()
 			for index := 0; index < b.N; index++ {
 				v.ChangeState(tc.nextState, tc.user)
@@ -113,7 +114,7 @@ func BenchmarkChangeStateNonVoidhandlersUser(b *testing.B) {
 
 	for _, tc := range tt {
 		b.Run(tc.testname, func(b *testing.B) {
-			v, _ := controller.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
+			v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", tc.state, 100)
 			defer v.Terminate()
 			for index := 0; index < b.N; index++ {
 				v.ChangeState(tc.nextState, tc.user)

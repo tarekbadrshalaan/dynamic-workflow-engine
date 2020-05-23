@@ -1,7 +1,8 @@
-package controller
+package exvehicle
 
 import (
 	"context"
+	"dwf/controller"
 	"dwf/logger"
 	"fmt"
 	"sync"
@@ -13,7 +14,7 @@ type Vehicle struct {
 	ID                   string
 	context              context.Context
 	ctxCancelFunc        context.CancelFunc
-	state                *State
+	state                *controller.State
 	batteryPercentage    int
 	lastDateStateChanged time.Time
 	mu                   sync.Mutex
@@ -24,7 +25,7 @@ func InitializeVehicle(ctx context.Context, id, state string, batteryPercentage 
 	vctx, cancelFunction := context.WithCancel(ctx)
 	v := &Vehicle{ID: id, context: vctx, ctxCancelFunc: cancelFunction}
 
-	st, err := GetState(state)
+	st, err := controller.GetState(state)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +57,7 @@ func (v *Vehicle) ChangeState(nextState string, usertype int) error {
 	oldState := v.state.Name
 	v.state = ns
 	v.lastDateStateChanged = time.Now()
-	logger.Infof("Change Vehicle state from (%v) to (%v) by User(%v)", oldState, v.state.Name, UsersType[usertype])
+	logger.Infof("Change Vehicle state from (%v) to (%v) by User(%v)", oldState, v.state.Name, controller.UsersType[usertype])
 	return nil
 }
 
@@ -69,7 +70,7 @@ func (v *Vehicle) autoStateChangerRunner() {
 			return
 		case <-time.Tick(10 * time.Millisecond):
 			for _, s := range v.state.AutoStatesSorted {
-				v.ChangeState(s.Name, SYSTEM)
+				v.ChangeState(s.Name, controller.SYSTEM)
 			}
 		}
 	}
@@ -108,15 +109,15 @@ func (v *Vehicle) AdminForceChangeState(nextState string, usertype int) error {
 	v.mu.Lock()
 	defer v.mu.Unlock()
 
-	if usertype != ADMIN { // check if the next user type available in the system
+	if usertype != controller.ADMIN { // check if the next user type available in the system
 		err := fmt.Errorf("Non Admin User try to force change vehicle state (%v)", usertype)
 		logger.Error(err)
 		return err
 	}
 	logger.Warn("START FORCE VEHICLE to change state")
 
-	ns, ok := internalStateList[nextState]
-	if !ok { // check if the next state available in the system
+	ns, err := controller.GetInternalStateList(nextState)
+	if err != nil { // check if the next state available in the system
 		err := fmt.Errorf("State (%v) is not exist", nextState)
 		logger.Error(err)
 		return err
@@ -125,7 +126,7 @@ func (v *Vehicle) AdminForceChangeState(nextState string, usertype int) error {
 	oldState := v.state.Name
 	v.state = ns
 	v.lastDateStateChanged = time.Now()
-	logger.Warnf("END FORCE VEHICLE to change state from (%v) to (%v) by user (%v)", oldState, v.state.Name, UsersType[usertype])
+	logger.Warnf("END FORCE VEHICLE to change state from (%v) to (%v) by user (%v)", oldState, v.state.Name, controller.UsersType[usertype])
 	return nil
 }
 

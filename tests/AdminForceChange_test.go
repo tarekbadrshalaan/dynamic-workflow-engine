@@ -3,6 +3,7 @@ package tests
 import (
 	"context"
 	"dwf/controller"
+	"dwf/exvehicle"
 	"testing"
 )
 
@@ -12,7 +13,7 @@ import (
 func TestAdminForceChangeState(t *testing.T) {
 
 	// Initialize only one vehicle to test stress changes
-	v, _ := controller.InitializeVehicle(context.Background(), "vec1", "Ready", 99)
+	v, _ := exvehicle.InitializeVehicle(context.Background(), "vec1", "Ready", 99)
 	defer v.Terminate()
 
 	tt := []struct {

@@ -2,7 +2,7 @@ package benchmarks
 
 import (
 	"context"
-	"dwf/controller"
+	"dwf/exvehicle"
 	"testing"
 )
 
@@ -65,7 +65,7 @@ func BenchmarkInitializeVehicle(b *testing.B) {
 	for _, tc := range tt {
 		b.Run(tc.testname, func(b *testing.B) {
 			for index := 0; index < b.N; index++ {
-				v, _ := controller.InitializeVehicle(context.Background(), tc.id, tc.state, tc.batteryPercentage)
+				v, _ := exvehicle.InitializeVehicle(context.Background(), tc.id, tc.state, tc.batteryPercentage)
 				v.Terminate()
 			}
 		})

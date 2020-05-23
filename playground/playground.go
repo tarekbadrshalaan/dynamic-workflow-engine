@@ -3,14 +3,15 @@ package playground
 import (
 	"context"
 	"dwf/controller"
+	"dwf/exvehicle"
 	"fmt"
 	"time"
 )
 
 // PlayFullVehicleStateCycle : ..
-func PlayFullVehicleStateCycle() (*controller.Vehicle, error) {
+func PlayFullVehicleStateCycle() (*exvehicle.Vehicle, error) {
 	fmt.Println("========================= PlayFullVehicleStateCycle ===============================")
-	myAwesomeVehicle, err := controller.InitializeVehicle(context.Background(), "num1", "Ready", 100)
+	myAwesomeVehicle, err := exvehicle.InitializeVehicle(context.Background(), "num1", "Ready", 100)
 	if err != nil {
 		return nil, fmt.Errorf("Error while initialize new vehicles : %v", err)
 	}
@@ -60,9 +61,9 @@ func PlayFullVehicleStateCycle() (*controller.Vehicle, error) {
 }
 
 // PlayReadyBounty : ..
-func PlayReadyBounty() (*controller.Vehicle, error) {
+func PlayReadyBounty() (*exvehicle.Vehicle, error) {
 	fmt.Println("========================= PlayReadyBounty ===============================")
-	myAwesomeVehicle, err := controller.InitializeVehicle(context.Background(), "num1", "Ready", 50)
+	myAwesomeVehicle, err := exvehicle.InitializeVehicle(context.Background(), "num1", "Ready", 50)
 	if err != nil {
 		return nil, fmt.Errorf("Error while initialize new vehicles : %v", err)
 	}
@@ -95,10 +96,10 @@ func PlayReadyBounty() (*controller.Vehicle, error) {
 }
 
 // PlayReadyUnknown : ..
-func PlayReadyUnknown() (*controller.Vehicle, error) {
+func PlayReadyUnknown() (*exvehicle.Vehicle, error) {
 	fmt.Println("========================= PlayReadyUnknown ===============================")
 
-	myAwesomeVehicle, err := controller.InitializeVehicle(context.Background(), "num1", "Ready", 21)
+	myAwesomeVehicle, err := exvehicle.InitializeVehicle(context.Background(), "num1", "Ready", 21)
 	if err != nil {
 		return nil, fmt.Errorf("Error while initialize new vehicles : %v", err)
 	}
@@ -141,9 +142,9 @@ func PlayReadyUnknown() (*controller.Vehicle, error) {
 }
 
 // PlayInvalidUser : ..
-func PlayInvalidUser() (*controller.Vehicle, error) {
+func PlayInvalidUser() (*exvehicle.Vehicle, error) {
 	fmt.Println("========================= PlayInvalidUser ===============================")
-	myAwesomeVehicle, err := controller.InitializeVehicle(context.Background(), "num1", "Riding", 40)
+	myAwesomeVehicle, err := exvehicle.InitializeVehicle(context.Background(), "num1", "Riding", 40)
 	if err != nil {
 		return nil, fmt.Errorf("Error while initialize new vehicles : %v", err)
 	}
@@ -168,9 +169,9 @@ func PlayInvalidUser() (*controller.Vehicle, error) {
 }
 
 // Dynamic : ..
-func Dynamic() (*controller.Vehicle, error) {
+func Dynamic() (*exvehicle.Vehicle, error) {
 	fmt.Println("========================= PlayInvalidUser ===============================")
-	myAwesomeVehicle, err := controller.InitializeVehicle(context.Background(), "num1", "Ready", 40)
+	myAwesomeVehicle, err := exvehicle.InitializeVehicle(context.Background(), "num1", "Ready", 40)
 	if err != nil {
 		return nil, fmt.Errorf("Error while initialize new vehicles : %v", err)
 	}
