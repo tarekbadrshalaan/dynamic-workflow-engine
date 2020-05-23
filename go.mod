@@ -1,4 +1,4 @@
-module gwf
+module dew
 
 go 1.14
 

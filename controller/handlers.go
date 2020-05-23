@@ -1,31 +1,41 @@
 package controller
 
 import (
-	"gwf/logger"
+	"dew/logger"
 	"time"
 )
 
-// handler :representation function for generic vehicle state handler
-type handler func(v *Vehicle) bool
+// Handler :representation function for generic vehicle state handler
+type Handler func(obj interface{}) bool
 
 // handlersList : the per defined handlers list
 // NOTE: we didn't use GO reflection because it might be insecure
 // to expose internal memory to configuration environment.
-var handlersList = map[string]handler{
-	"voidHandler": voidHandler,
-	"batteryLow":  batteryLowHandler,
-	"after930PM":  after930PMHandler,
-	"after48H":    after48HHandler,
+var handlersList = map[string]Handler{
+	"voidHandler":  voidHandler,
+	"batteryLow":   batteryLowHandler,
+	"after930PM":   after930PMHandler,
+	"after48H":     after48HHandler,
+	"printHandler": printHandler,
 }
 
 // voidHandler : handler accept any chanage
-func voidHandler(v *Vehicle) bool {
+func voidHandler(obj interface{}) bool {
 	return true
 }
 
+// IBatteryPercentage :
+type IBatteryPercentage interface {
+	BatteryPercentage() int
+}
+
 // batteryLowHandler : handler check if battery low
-func batteryLowHandler(v *Vehicle) bool {
-	if v.batteryPercentage < 20 {
+func batteryLowHandler(obj interface{}) bool {
+	v, ok := obj.(IBatteryPercentage)
+	if !ok {
+		return false
+	}
+	if v.BatteryPercentage() < 20 {
 		logger.Info("Change State batteryLow handler")
 		return true
 	}
@@ -33,7 +43,7 @@ func batteryLowHandler(v *Vehicle) bool {
 }
 
 // after930PMHandler : handler directly fire after 9:30 pm
-func after930PMHandler(v *Vehicle) bool {
+func after930PMHandler(obj interface{}) bool {
 	now := time.Now()
 	t930PM := time.Date(now.Year(), now.Month(), now.Day(), 21, 30, 0, 0, time.UTC)
 	if now.After(t930PM) {
@@ -43,9 +53,18 @@ func after930PMHandler(v *Vehicle) bool {
 	return false
 }
 
+// IlastDateStateChanged :
+type IlastDateStateChanged interface {
+	LastDateStateChanged() time.Time
+}
+
 // after48HHandler : handler directly fire after 48 Hours without a state change
-func after48HHandler(v *Vehicle) bool {
-	after48h := v.lastDateStateChanged.Add(time.Hour * time.Duration(48))
+func after48HHandler(obj interface{}) bool {
+	v, ok := obj.(IlastDateStateChanged)
+	if !ok {
+		return false
+	}
+	after48h := v.LastDateStateChanged().Add(time.Hour * time.Duration(48))
 	now := time.Now()
 	if now.After(after48h) {
 		logger.Info("Change State from After 48 Hours handler")
@@ -54,18 +73,16 @@ func after48HHandler(v *Vehicle) bool {
 	return false
 }
 
-// TODO :
-
 // IPrintExecute :
 type IPrintExecute interface {
-	print() bool
+	Print() bool
 }
 
-// printHandler :
+// PtHandler :
 func printHandler(obj interface{}) bool {
 	p, ok := obj.(IPrintExecute)
 	if !ok {
 		return false
 	}
-	return p.print()
+	return p.Print()
 }

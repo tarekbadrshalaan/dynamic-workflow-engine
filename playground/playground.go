@@ -2,8 +2,8 @@ package playground
 
 import (
 	"context"
+	"dew/controller"
 	"fmt"
-	"gwf/controller"
 	"time"
 )
 
@@ -160,6 +160,22 @@ func PlayInvalidUser() (*controller.Vehicle, error) {
 	}
 
 	err = myAwesomeVehicle.ChangeState("Unknown", controller.HUNTER)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return myAwesomeVehicle, err
+}
+
+// Dynamic : ..
+func Dynamic() (*controller.Vehicle, error) {
+	fmt.Println("========================= PlayInvalidUser ===============================")
+	myAwesomeVehicle, err := controller.InitializeVehicle(context.Background(), "num1", "Ready", 40)
+	if err != nil {
+		return nil, fmt.Errorf("Error while initialize new vehicles : %v", err)
+	}
+
+	err = myAwesomeVehicle.ChangeState("print", controller.ADMIN)
 	if err != nil {
 		fmt.Println(err)
 	}

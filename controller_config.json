@@ -31,6 +31,16 @@
                     "users": [
                         "System"
                     ]
+                },
+                {
+                    "name": "print",
+                    "function": "printHandler",
+                    "auto_run": false,
+                    "priority": 1,
+                    "users": [
+                        "Admin",
+                        "System"
+                    ]
                 }
             ]
         },
@@ -67,6 +77,20 @@
                     "name": "Bounty",
                     "function": "voidHandler",
                     "auto_run": true,
+                    "users": [
+                        "Vehicle",
+                        "System"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "print",
+            "available_states": [
+                {
+                    "name": "Bounty",
+                    "function": "voidHandler",
+                    "auto_run": false,
                     "users": [
                         "Vehicle",
                         "System"

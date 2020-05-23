@@ -1,10 +1,10 @@
 package main
 
 import (
-	"gwf/config"
-	"gwf/controller"
-	"gwf/logger"
-	"gwf/playground"
+	"dew/config"
+	"dew/controller"
+	"dew/logger"
+	"dew/playground"
 )
 
 func main() {
@@ -28,32 +28,39 @@ func main() {
 	}
 	/* controller initialize end */
 
-	vi, err := playground.PlayFullVehicleStateCycle()
+	vi, err := playground.Dynamic()
 	if err != nil {
 		logger.Error(err)
 	}
 	viState := vi.State()
 	logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
 
-	vi, err = playground.PlayReadyBounty()
-	if err != nil {
-		logger.Error(err)
-	}
-	viState = vi.State()
-	logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
+	// vi, err = playground.PlayFullVehicleStateCycle()
+	// if err != nil {
+	// 	logger.Error(err)
+	// }
+	// viState = vi.State()
+	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
 
-	vi, err = playground.PlayReadyUnknown()
-	if err != nil {
-		logger.Error(err)
-	}
-	viState = vi.State()
-	logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
+	// vi, err = playground.PlayReadyBounty()
+	// if err != nil {
+	// 	logger.Error(err)
+	// }
+	// viState = vi.State()
+	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
 
-	vi, err = playground.PlayInvalidUser()
-	if err != nil {
-		logger.Error(err)
-	}
-	viState = vi.State()
-	logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
+	// vi, err = playground.PlayReadyUnknown()
+	// if err != nil {
+	// 	logger.Error(err)
+	// }
+	// viState = vi.State()
+	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
+
+	// vi, err = playground.PlayInvalidUser()
+	// if err != nil {
+	// 	logger.Error(err)
+	// }
+	// viState = vi.State()
+	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
 
 }

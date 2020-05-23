@@ -2,8 +2,8 @@ package controller
 
 import (
 	"context"
+	"dew/logger"
 	"fmt"
-	"gwf/logger"
 	"sync"
 	"time"
 )
@@ -13,7 +13,7 @@ type Vehicle struct {
 	ID                   string
 	context              context.Context
 	ctxCancelFunc        context.CancelFunc
-	state                *state
+	state                *State
 	batteryPercentage    int
 	lastDateStateChanged time.Time
 	mu                   sync.Mutex
@@ -24,7 +24,7 @@ func InitializeVehicle(ctx context.Context, id, state string, batteryPercentage 
 	vctx, cancelFunction := context.WithCancel(ctx)
 	v := &Vehicle{ID: id, context: vctx, ctxCancelFunc: cancelFunction}
 
-	st, err := getState(state)
+	st, err := GetState(state)
 	if err != nil {
 		return nil, err
 	}
@@ -39,24 +39,24 @@ func InitializeVehicle(ctx context.Context, id, state string, batteryPercentage 
 func (v *Vehicle) ChangeState(nextState string, usertype int) error {
 	v.mu.Lock()
 	defer v.mu.Unlock()
-	f, ns, err := v.state.validatechangeStatus(nextState, usertype)
+	f, ns, err := v.state.ValidatechangeStatus(nextState, usertype)
 	if err != nil {
 		logger.Error(err)
-		return fmt.Errorf("change statues from (%v) to (%v) is not valid ERROR:%v", v.state.name, nextState, err)
+		return fmt.Errorf("change statues from (%v) to (%v) is not valid ERROR:%v", v.state.Name, nextState, err)
 	}
 
 	// execute the handler check if allowed to change vehicle state
 	allowed := f(v)
 	if !allowed {
-		err := fmt.Errorf("not allowed to change statues from (%v) to (%v)", v.state.name, ns.name)
+		err := fmt.Errorf("not allowed to change statues from (%v) to (%v)", v.state.Name, ns.Name)
 		logger.Error(err)
 		return err
 	}
 
-	oldState := v.state.name
+	oldState := v.state.Name
 	v.state = ns
 	v.lastDateStateChanged = time.Now()
-	logger.Infof("Change Vehicle state from (%v) to (%v) by User(%v)", oldState, v.state.name, UsersType[usertype])
+	logger.Infof("Change Vehicle state from (%v) to (%v) by User(%v)", oldState, v.state.Name, UsersType[usertype])
 	return nil
 }
 
@@ -68,8 +68,8 @@ func (v *Vehicle) autoStateChangerRunner() {
 			logger.Info("Vehicle has been terminated ...")
 			return
 		case <-time.Tick(10 * time.Millisecond):
-			for _, s := range v.state.autoStatesSorted {
-				v.ChangeState(s.name, SYSTEM)
+			for _, s := range v.state.AutoStatesSorted {
+				v.ChangeState(s.Name, SYSTEM)
 			}
 		}
 	}
@@ -77,7 +77,7 @@ func (v *Vehicle) autoStateChangerRunner() {
 
 // State : get the name of currant state and availabe States
 func (v *Vehicle) State() string {
-	return v.state.name
+	return v.state.Name
 }
 
 // Terminate : Terminate and remove this vehicle object from the system.
@@ -87,11 +87,11 @@ func (v *Vehicle) Terminate() {
 
 // AvailableStates : get the name of currant state and availabe States
 func (v *Vehicle) AvailableStates() (string, []string) {
-	stateName := v.state.name
-	availableStates := v.state.availableStates
+	stateName := v.state.Name
+	availableStates := v.state.AvailableStates
 	availableStatesArr := []string{}
 	for _, v := range availableStates {
-		availableStatesArr = append(availableStatesArr, v.name)
+		availableStatesArr = append(availableStatesArr, v.Name)
 	}
 	return stateName, availableStatesArr
 }
@@ -122,9 +122,25 @@ func (v *Vehicle) AdminForceChangeState(nextState string, usertype int) error {
 		return err
 	}
 
-	oldState := v.state.name
+	oldState := v.state.Name
 	v.state = ns
 	v.lastDateStateChanged = time.Now()
-	logger.Warnf("END FORCE VEHICLE to change state from (%v) to (%v) by user (%v)", oldState, v.state.name, UsersType[usertype])
+	logger.Warnf("END FORCE VEHICLE to change state from (%v) to (%v) by user (%v)", oldState, v.state.Name, UsersType[usertype])
 	return nil
+}
+
+// Print :
+func (v *Vehicle) Print() bool {
+	fmt.Println("============== hello from print status :) =====================")
+	return true
+}
+
+// BatteryPercentage :
+func (v *Vehicle) BatteryPercentage() int {
+	return v.batteryPercentage
+}
+
+// LastDateStateChanged :
+func (v *Vehicle) LastDateStateChanged() time.Time {
+	return v.lastDateStateChanged
 }

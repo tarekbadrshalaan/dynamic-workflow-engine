@@ -1,13 +1,13 @@
 package controller
 
 import (
+	"dew/logger"
 	"fmt"
-	"gwf/logger"
 	"sort"
 )
 
 // internalStateList :
-var internalStateList map[string]*state
+var internalStateList map[string]*State
 
 // Configuration : controller configuration
 type Configuration struct {
@@ -31,16 +31,16 @@ type AvailableStateConfig struct {
 
 // BuildStates : build states from configuration
 func BuildStates(conf *Configuration) error {
-	states := map[string]*state{}
+	states := map[string]*State{}
 
 	for _, s := range conf.StatesList {
-		states[s.Name] = &state{
-			name:            s.Name,
-			availableStates: map[string]availableState{},
+		states[s.Name] = &State{
+			Name:            s.Name,
+			AvailableStates: map[string]availableState{},
 		}
 		for _, a := range s.AvailableStateConfig {
 			avs := availableState{
-				name:     a.Name,
+				Name:     a.Name,
 				autoRun:  a.AutoRun,
 				priority: a.Priority,
 				users:    map[int]bool{},
@@ -63,7 +63,7 @@ func BuildStates(conf *Configuration) error {
 				avs.users[inuser] = true
 			}
 
-			states[s.Name].availableStates[a.Name] = avs
+			states[s.Name].AvailableStates[a.Name] = avs
 		}
 	}
 	// set internal states list.
@@ -72,11 +72,11 @@ func BuildStates(conf *Configuration) error {
 }
 
 // SetInternalStateList :
-func SetInternalStateList(states map[string]*state) {
+func SetInternalStateList(states map[string]*State) {
 
 	for _, s := range states {
 		autoStates := []availableState{}
-		for _, s := range s.availableStates {
+		for _, s := range s.AvailableStates {
 			if s.autoRun {
 				autoStates = append(autoStates, s)
 			}
@@ -84,7 +84,7 @@ func SetInternalStateList(states map[string]*state) {
 		sort.SliceStable(autoStates, func(i, j int) bool {
 			return autoStates[i].priority < autoStates[j].priority
 		})
-		s.autoStatesSorted = autoStates
+		s.AutoStatesSorted = autoStates
 	}
 
 	// set internal states list.

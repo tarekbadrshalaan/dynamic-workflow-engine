@@ -2,26 +2,26 @@ package controller
 
 // BuildDefaultStateList : get the per defined states list
 func BuildDefaultStateList() {
-	stateList := map[string]*state{}
+	stateList := map[string]*State{}
 
-	stateList["Ready"] = &state{
-		name: "Ready",
-		availableStates: map[string]availableState{
+	stateList["Ready"] = &State{
+		Name: "Ready",
+		AvailableStates: map[string]availableState{
 			"Riding": availableState{
-				name:     "Riding",
+				Name:     "Riding",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{USER: true, HUNTER: true, ADMIN: true, SYSTEM: true},
 			},
 			"Unknown": availableState{
-				name:     "Unknown",
+				Name:     "Unknown",
 				funcName: "after48H",
 				autoRun:  true,
 				priority: 0,
 				users:    map[int]bool{SYSTEM: true},
 			},
 			"Bounty": availableState{
-				name:     "Bounty",
+				Name:     "Bounty",
 				funcName: "after930PM",
 				autoRun:  true,
 				priority: 1,
@@ -30,17 +30,17 @@ func BuildDefaultStateList() {
 		},
 	}
 
-	stateList["Riding"] = &state{
-		name: "Riding",
-		availableStates: map[string]availableState{
+	stateList["Riding"] = &State{
+		Name: "Riding",
+		AvailableStates: map[string]availableState{
 			"Ready": availableState{
-				name:     "Ready",
+				Name:     "Ready",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{USER: true, HUNTER: true, ADMIN: true, SYSTEM: true},
 			},
 			"Battery-Low": availableState{
-				name:     "Battery-Low",
+				Name:     "Battery-Low",
 				funcName: "batteryLow",
 				autoRun:  true,
 				priority: 0,
@@ -49,11 +49,11 @@ func BuildDefaultStateList() {
 		},
 	}
 
-	stateList["Battery-Low"] = &state{
-		name: "Battery-Low",
-		availableStates: map[string]availableState{
+	stateList["Battery-Low"] = &State{
+		Name: "Battery-Low",
+		AvailableStates: map[string]availableState{
 			"Bounty": availableState{
-				name:     "Bounty",
+				Name:     "Bounty",
 				funcName: "voidHandler",
 				autoRun:  true,
 				users:    map[int]bool{VEHICLE: true, SYSTEM: true},
@@ -61,11 +61,11 @@ func BuildDefaultStateList() {
 		},
 	}
 
-	stateList["Bounty"] = &state{
-		name: "Bounty",
-		availableStates: map[string]availableState{
+	stateList["Bounty"] = &State{
+		Name: "Bounty",
+		AvailableStates: map[string]availableState{
 			"Collected": availableState{
-				name:     "Collected",
+				Name:     "Collected",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{HUNTER: true, ADMIN: true, SYSTEM: true},
@@ -73,11 +73,11 @@ func BuildDefaultStateList() {
 		},
 	}
 
-	stateList["Collected"] = &state{
-		name: "Collected",
-		availableStates: map[string]availableState{
+	stateList["Collected"] = &State{
+		Name: "Collected",
+		AvailableStates: map[string]availableState{
 			"Dropped": availableState{
-				name:     "Dropped",
+				Name:     "Dropped",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{HUNTER: true, ADMIN: true, SYSTEM: true},
@@ -85,11 +85,11 @@ func BuildDefaultStateList() {
 		},
 	}
 
-	stateList["Dropped"] = &state{
-		name: "Dropped",
-		availableStates: map[string]availableState{
+	stateList["Dropped"] = &State{
+		Name: "Dropped",
+		AvailableStates: map[string]availableState{
 			"Ready": availableState{
-				name:     "Ready",
+				Name:     "Ready",
 				funcName: "voidHandler",
 				autoRun:  false,
 				users:    map[int]bool{HUNTER: true, ADMIN: true, SYSTEM: true},
@@ -99,8 +99,8 @@ func BuildDefaultStateList() {
 
 	// Unknown does not have Availabe state,
 	// it should handled directly from the admin
-	stateList["Unknown"] = &state{
-		name: "Unknown",
+	stateList["Unknown"] = &State{
+		Name: "Unknown",
 	}
 
 	// set internal states list.

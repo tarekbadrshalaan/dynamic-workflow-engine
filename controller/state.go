@@ -1,28 +1,28 @@
 package controller
 
 import (
+	"dew/logger"
 	"fmt"
-	"gwf/logger"
 )
 
-// state : representation object for state
-type state struct {
-	name             string
-	availableStates  map[string]availableState
-	autoStatesSorted []availableState
+// State : representation object for State
+type State struct {
+	Name             string
+	AvailableStates  map[string]availableState
+	AutoStatesSorted []availableState
 }
 
 // AvailableState : one available state to move on from previous state.
 type availableState struct {
-	name     string
+	Name     string
 	funcName string
 	autoRun  bool
 	priority int
 	users    map[int]bool
 }
 
-// validatechangeStatus : check if the currant state can move to next_state with user_type
-func (s *state) validatechangeStatus(nextState string, usertype int) (handler, *state, error) {
+// ValidatechangeStatus : check if the currant state can move to next_state with user_type
+func (s *State) ValidatechangeStatus(nextState string, usertype int) (Handler, *State, error) {
 
 	ns, ok := internalStateList[nextState]
 	if !ok { // check if the next state available in the system
@@ -37,15 +37,15 @@ func (s *state) validatechangeStatus(nextState string, usertype int) (handler, *
 		return nil, nil, err
 	}
 
-	availableState, ok := s.availableStates[ns.name]
+	availableState, ok := s.AvailableStates[ns.Name]
 	if !ok {
-		err := fmt.Errorf("nextState(%v) is not exist", ns.name)
+		err := fmt.Errorf("nextState(%v) is not exist", ns.Name)
 		logger.Error(err)
 		return nil, nil, err
 	}
 
 	if !availableState.users[usertype] {
-		err := fmt.Errorf("Change vehicle state from (%v) to (%v) is not available for (%v user)", s.name, ns.name, user)
+		err := fmt.Errorf("Change vehicle state from (%v) to (%v) is not available for (%v user)", s.Name, ns.Name, user)
 		logger.Error(err)
 		return nil, nil, err
 	}
@@ -59,8 +59,8 @@ func (s *state) validatechangeStatus(nextState string, usertype int) (handler, *
 	return f, ns, nil
 }
 
-// getState : get state by name
-func getState(state string) (*state, error) {
+// GetState : get state by name
+func GetState(state string) (*State, error) {
 	s, ok := internalStateList[state]
 	if !ok {
 		err := fmt.Errorf("State (%v) is not exist", state)
