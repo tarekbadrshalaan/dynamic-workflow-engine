@@ -1,4 +1,6 @@
 {
+    "API_ADDRESS": "0.0.0.0",
+    "API_PORT": 7070,
     "states_list": [
         {
             "name": "Ready",
@@ -29,16 +31,6 @@
                     "auto_run": true,
                     "priority": 1,
                     "users": [
-                        "System"
-                    ]
-                },
-                {
-                    "name": "print",
-                    "function": "printHandler",
-                    "auto_run": false,
-                    "priority": 1,
-                    "users": [
-                        "Admin",
                         "System"
                     ]
                 }
@@ -77,20 +69,6 @@
                     "name": "Bounty",
                     "function": "voidHandler",
                     "auto_run": true,
-                    "users": [
-                        "Vehicle",
-                        "System"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "print",
-            "available_states": [
-                {
-                    "name": "Bounty",
-                    "function": "voidHandler",
-                    "auto_run": false,
                     "users": [
                         "Vehicle",
                         "System"

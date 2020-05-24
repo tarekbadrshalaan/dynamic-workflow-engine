@@ -50,7 +50,7 @@ func (v *Vehicle) ChangeState(nextState string, usertype int) error {
 	allowed := f(v)
 	if !allowed {
 		err := fmt.Errorf("not allowed to change statues from (%v) to (%v)", v.state.Name, ns.Name)
-		logger.Error(err)
+		// logger.Error(err)
 		return err
 	}
 

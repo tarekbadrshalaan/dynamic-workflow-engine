@@ -15,7 +15,6 @@ var handlersList = map[string]Handler{
 	"batteryLow":                handlers.BatteryLowHandler,
 	"after930PM":                handlers.After930PMHandler,
 	"after48H":                  handlers.After48HHandler,
-	"printHandler":              handlers.PrintHandler,
 	"isValidCardHandler":        handlers.IsValidCardHandler,
 	"notValidHandler":           handlers.NotValidHandler,
 	"validCardHandler":          handlers.ValidCardHandler,

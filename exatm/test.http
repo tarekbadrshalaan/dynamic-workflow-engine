@@ -1,0 +1,23 @@
+#########################################
+#                   ATM                 #
+#########################################
+
+### initialize ATM
+POST http://localhost:7070/atm/initialize
+Content-Type: application/json
+
+{
+    
+}
+
+### ATM Change State
+POST http://localhost:7070/atm/change_state
+Content-Type: application/json
+
+{
+
+}
+
+### ATM Change State
+GET http://localhost:7070/atm/available_states/1
+Content-Type: application/json

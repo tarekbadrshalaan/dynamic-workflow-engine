@@ -1,7 +1,5 @@
 package handlers
 
-import "dwf/logger"
-
 // IBatteryPercentage :
 type IBatteryPercentage interface {
 	BatteryPercentage() int
@@ -14,7 +12,7 @@ func BatteryLowHandler(obj interface{}) bool {
 		return false
 	}
 	if v.BatteryPercentage() < 20 {
-		logger.Info("Change State batteryLow handler")
+		// logger.Info("Change State batteryLow handler")
 		return true
 	}
 	return false

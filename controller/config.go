@@ -12,6 +12,8 @@ var internalStateList map[string]*State
 // Configuration : controller configuration
 type Configuration struct {
 	StatesList []StateConfig `json:"states_list"`
+	WebAddress string        `json:"API_ADDRESS" envconfig:"API_ADDRESS"`
+	WebPort    int           `json:"API_PORT" envconfig:"API_PORT"`
 }
 
 // StateConfig :

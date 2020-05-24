@@ -1,10 +1,13 @@
 package main
 
 import (
+	"dwf/api"
 	"dwf/config"
 	"dwf/controller"
 	"dwf/logger"
-	"dwf/playground"
+	"fmt"
+	"log"
+	"net/http"
 )
 
 func main() {
@@ -15,59 +18,18 @@ func main() {
 	/* logger initialize end */
 
 	/* controller initialize start */
-
-	// a> build state list from predefined one
-	// controller.BuildDefaultStateList()
-
-	// b> use json configuration file to build state list
-	confstateList := &controller.Configuration{}
-	config.Configuration("exatm/controller_config.json", confstateList)
-	err := controller.BuildStates(confstateList)
+	c := &controller.Configuration{}
+	// config.Configuration("exatm/controller_config.json", c)
+	config.Configuration("exvehicle/controller_config.json", c)
+	err := controller.BuildStates(c)
 	if err != nil {
 		logger.Fatal(err)
 	}
 	/* controller initialize end */
 
-	// vi, err := playground.Dynamic()
-	// if err != nil {
-	// 	logger.Error(err)
-	// }
-	// viState := vi.State()
-	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
-
-	// vi, err = playground.PlayFullVehicleStateCycle()
-	// if err != nil {
-	// 	logger.Error(err)
-	// }
-	// viState = vi.State()
-	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
-
-	// vi, err = playground.PlayReadyBounty()
-	// if err != nil {
-	// 	logger.Error(err)
-	// }
-	// viState = vi.State()
-	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
-
-	// vi, err = playground.PlayReadyUnknown()
-	// if err != nil {
-	// 	logger.Error(err)
-	// }
-	// viState = vi.State()
-	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
-
-	// vi, err = playground.PlayInvalidUser()
-	// if err != nil {
-	// 	logger.Error(err)
-	// }
-	// viState = vi.State()
-	// logger.Infof("Vehicle id (%v) the final state (%v)", vi.ID, viState)
-
-	card, err := playground.PlayFullATMStateCycle()
-	if err != nil {
-		logger.Error(err)
-	}
-	cState := card.State()
-	logger.Infof("Card id (%v) the final state (%v)", card.ID, cState)
-
+	/* initialize webserver start */
+	r := api.NewRouter()
+	addr := fmt.Sprintf("%v:%d", c.WebAddress, c.WebPort)
+	log.Fatal(http.ListenAndServe(addr, r))
+	/* initialize webserver end */
 }

@@ -1,0 +1,96 @@
+#########################################
+#                 Vehicle               #
+#########################################
+
+### list Vehicle
+GET http://localhost:7070/vehicle/all_vehicles
+Content-Type: application/json
+
+### initialize Vehicle
+POST http://localhost:7070/vehicle/initialize
+Content-Type: application/json
+
+{
+    "id" : "v1",
+    "state" : "Ready",
+    "battery_percentage" : 100
+}
+
+### initialize Vehicle
+POST http://localhost:7070/vehicle/initialize
+Content-Type: application/json
+
+{
+    "id" : "v2",
+    "state" : "Riding",
+    "battery_percentage" : 30
+}
+
+### Vehicle Change State
+POST http://localhost:7070/vehicle/change_state
+Content-Type: application/json
+
+{
+    "id" : "v2",
+    "state" : "Ready",
+    "user": 0
+}
+
+### Vehicle Change State
+POST http://localhost:7070/vehicle/change_state
+Content-Type: application/json
+
+{
+    "id" : "v1",
+    "state" : "Riding",
+    "user": 0
+}
+
+
+### Vehicle Change battery
+POST http://localhost:7070/vehicle/change_battery
+Content-Type: application/json
+
+{
+    "id" : "v1",
+    "battery_percentage" : 15
+}
+
+
+### Vehicle Change State
+POST http://localhost:7070/vehicle/change_state
+Content-Type: application/json
+
+{
+    "id" : "v1",
+    "state" : "Collected",
+    "user": 1
+}
+
+### Vehicle Change State
+POST http://localhost:7070/vehicle/change_state
+Content-Type: application/json
+
+{
+    "id" : "v1",
+    "state" : "Dropped",
+    "user": 1
+}
+
+### Vehicle Change State
+POST http://localhost:7070/vehicle/change_state
+Content-Type: application/json
+
+{
+    "id" : "v1",
+    "state" : "Ready",
+    "user": 1
+}
+
+### Vehicle Change State
+GET http://localhost:7070/vehicle/available_states/v1
+Content-Type: application/json
+
+### Vehicle Change State
+GET http://localhost:7070/vehicle/available_states/v2
+Content-Type: application/json
