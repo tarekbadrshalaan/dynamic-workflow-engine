@@ -31,6 +31,7 @@ type CardAPI struct {
 	InputPin        string   `json:"input_pin"`
 	Balance         float64  `json:"Balance"`
 	RequestFund     float64  `json:"request_fund"`
+	User            int      `json:"user"`
 }
 
 // ConfigATMRouter :
@@ -121,7 +122,7 @@ func changeStateATM(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 		return
 	}
 
-	err := dbc.ChangeState(c.State, 0)
+	err := dbc.ChangeState(c.State, c.User)
 	if err != nil {
 		msg := fmt.Errorf("Can’t change to status (%v); err (%v)", c.State, err)
 		logger.Error(msg)

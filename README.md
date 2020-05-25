@@ -3,12 +3,15 @@ dynamic workflow engine
 
 ```
 DWE is a POC of creating dynamic workflow engine in golang,
-basically DWE could implement any workflow see example directory.
+basically DWE could implement any workflow see (exatm, exvehicle  directories).
 ```
 
 ## Components 
 
 - **controller** tha main package to handle workflow and test package.
+- **exatm** example using atm system.
+- **exvehicle** example using vehicle system.
+- **api** API interface to use the engine.
 - **config** simple package to handle read configuration from json file.
 - **logger** logging service include 3 type of logger implementation.
 - **playground** external package to use package controller, and main package use *playground* to run.
@@ -16,72 +19,22 @@ basically DWE could implement any workflow see example directory.
 
 ## How to use **DWE**
 
-DWE provide you with nice *controller* package to control your vehicle workflow.
+DWE provide you with nice *controller* package to control your workflow.
 
 so basically you need to extract *controller* package and use it in your soft real­time API solution.
 
 
-## **controller** package
-
-*controller* package provide you with **Vehicle** struct which is our base unit to build the workflow
-
-- Vehicle struct contain only one public property which is `ID`
-    ```
-    type Vehicle struct {
-    	ID                   string
-    }
-    ```
-- to Initialize new Vehicle use `InitializeVehicle` function with input about currant `state` of the vehicle and `battery Percentage` in return you will get new `Vehicle` instances or `error`
-    ```
-    InitializeVehicle(id, state string, batteryPercentage int) (*Vehicle, error)
-    ```
-- `Vehicle` instances provide you 5 public methods to control your instance
-    
-    - `SetBatteryPercentage` to reset battery percentage of your vehicle with no return e.g.
-    ```
-    yourvehicle.SetBatteryPercentage(newBatteryPercentage int)
-    ```
-    
-    - `State` to get the currant state of your vehicle e.g.
-    ```
-    yourvehicle.State() currant_state string
-    ```
-    
-    - `AvailableStates` to get the currant state and available next state of your vehicle e.g.
-    ```
-    yourvehicle.AvailableStates()(currant_state string, AvailableStates []string)
-    ```
-    
-    - `AdminForceChangeState` to be able to force state change from admin with error in return e.g.
-    ```
-    // WARNING: this method will not check the user (authorization/session)
-    // the permission check should be done before call this method
-
-    yourvehicle.AdminForceChangeState(nextState string, usertype int) error
-    ```
-    
-    - `ChangeState` to change your vehicle state, but you have to follow th role that has been setted in the workflow core **StateList** e.g.
-    ```
-    yourvehicle.ChangeState(nextState string, usertype int) error
-    ```
-
-each vehicle contain **state** and this state controlled by workflow has been setted before in the system
-
-### **states flow** strategy
+### **Status flow** strategy
 ```
-dwf state flow builded to be dynamic and configurable, that's mean your work flow can be increase, decrease ,change states position without touch the code.
+dwf status flow built to be dynamic and configurable, that's mean your work flow can be increase, decrease ,change status position without touch the code.
 ```
-- `state` is the base unit to the flow system.
-- each `state` contains it's name and next available states.
-- to move from `state` to next available states, you should go throw two conditions 
-    - **Authority condition** : each user in the system has some states he can go throw them, and this Authorization roles is configurable throw states configuration.
-    - **function condition** : to go from state to available state the authorized user go throw condition function which simply allow or disallow change state to happen.
+- `Status` is the base unit to the flow system.
+- Each `status` contains it's name and next available status.
+- To move from `status` to next available status, you should go throw two conditions 
+    - **Authority Condition** : each user in the system has some status he can go throw them, and this Authorization roles is configurable throw status configuration.
+    - **Function Condition** : to go from state to available state the authorized user go throw condition function which simply allow or disallow change state to happen.
 
-- to set `state` flow, you have to path
-    - use perconfigure flow by call 
-        ```
-        controller.BuildDefaultStateList()
-        ```
+- to set `status` flow, you have to path
     - build your own flow in a json file and pass the file path to `BuildStates` e.g.
         ```
         	confstateList := &controller.Configuration{}
@@ -93,7 +46,7 @@ dwf state flow builded to be dynamic and configurable, that's mean your work flo
         ```
 
 
-### build your own **states flow**
+### build your own **status flow**
 
 - create json file with this schema
 ```
@@ -121,7 +74,7 @@ dwf state flow builded to be dynamic and configurable, that's mean your work flo
                 }
             ]
         },
-        // add another states ... 
+        // add another status ... 
         {
 
             "name": "state2",
@@ -158,3 +111,51 @@ NOTE: the currant users system is hard coded so it need developer/code updated t
 4. `Vehicle`: basic user, and has no exception features, we created it to mention requests from vehicle itself 
 
 5. `System`: basic user, we created it to mention requests from automation system.
+
+## Examples : 
+
+### **exvehicle** package
+
+*exvehicle* package provide you with **Vehicle** struct which is our base unit to build the workflow
+
+- Vehicle struct contain only one public property which is `ID`
+    ```
+    type Vehicle struct {
+    	ID                   string
+    }
+    ```
+- to Initialize new Vehicle use `InitializeVehicle` function with input about currant `state` of the vehicle and `battery Percentage` in return you will get new `Vehicle` instances or `error`
+    ```
+    InitializeVehicle(id, state string, batteryPercentage int) (*Vehicle, error)
+    ```
+- `Vehicle` instances provide you 5 public methods to control your instance
+    
+    - `SetBatteryPercentage` to reset battery percentage of your vehicle with no return e.g.
+    ```
+    yourvehicle.SetBatteryPercentage(newBatteryPercentage int)
+    ```
+    
+    - `State` to get the currant state of your vehicle e.g.
+    ```
+    yourvehicle.State() currant_state string
+    ```
+    
+    - `AvailableStates` to get the currant state and available next state of your vehicle e.g.
+    ```
+    yourvehicle.AvailableStates()(currant_state string, AvailableStates []string)
+    ```
+    
+    - `AdminForceChangeState` to be able to force state change from admin with error in return e.g.
+    ```
+    // WARNING: this method will not check the user (authorization/session)
+    // the permission check should be done before call this method
+
+    yourvehicle.AdminForceChangeState(nextState string, usertype int) error
+    ```
+    
+    - `ChangeState` to change your vehicle state, but you have to follow th role that has been set in the workflow core **StateList** e.g.
+    ```
+    yourvehicle.ChangeState(nextState string, usertype int) error
+    ```
+
+each vehicle contain **state** and this state controlled by workflow has been set before in the system
