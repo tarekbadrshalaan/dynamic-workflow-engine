@@ -24,10 +24,7 @@ var handlersList = map[string]Handler{
 	"validPinHandler":           handlers.ValidPinHandler,
 	"inValidPinHandler":         handlers.InValidPinHandler,
 	"chooseActionHandler":       handlers.ChooseActionHandler,
-	"chooseMoneyHandler":        handlers.ChooseMoneyHandler,
 	"showAccountBalanceHandler": handlers.ShowAccountBalanceHandler,
-	"showMoneyScreenHandler":    handlers.ShowMoneyScreenHandler,
 	"sufficientFundHandler":     handlers.SufficientFundHandler,
-	"relaseMoneyHandler":        handlers.RelaseMoneyHandler,
 	"endHandler":                handlers.EndHandler,
 }

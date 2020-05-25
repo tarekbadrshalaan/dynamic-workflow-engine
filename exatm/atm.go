@@ -17,6 +17,10 @@ type Card struct {
 	state         *controller.State
 	password      string
 	balance       float64
+	validCard     bool
+	validPin      bool
+	InputPin      string
+	RequestFund   float64
 	mu            sync.Mutex
 }
 
@@ -40,7 +44,7 @@ func (c *Card) ChangeState(nextState string, usertype int) error {
 	defer c.mu.Unlock()
 	f, ns, err := c.state.ValidatechangeStatus(nextState, usertype)
 	if err != nil {
-		logger.Error(err)
+		// logger.Error(err)
 		return fmt.Errorf("change statues from (%v) to (%v) is not valid ERROR:%v", c.state.Name, nextState, err)
 	}
 
@@ -48,7 +52,7 @@ func (c *Card) ChangeState(nextState string, usertype int) error {
 	allowed := f(c)
 	if !allowed {
 		err := fmt.Errorf("not allowed to change statues from (%v) to (%v)", c.state.Name, ns.Name)
-		logger.Error(err)
+		// logger.Error(err)
 		return err
 	}
 
@@ -94,98 +98,82 @@ func (c *Card) AvailableStates() (string, []string) {
 	return stateName, availableStatesArr
 }
 
-// Print :
-func (c *Card) Print() bool {
-	fmt.Println("============== hello from print status :) =====================")
-	return true
+// GetBalance : get
+func (c *Card) GetBalance() float64 {
+	return c.balance
 }
 
 // IsValidCardHandler :
 func (c *Card) IsValidCardHandler() bool {
-	fmt.Println("IsValidCardHandler")
+	c.validCard = len(c.ID) < 6
 	return true
 }
 
 // NotValidHandler :
 func (c *Card) NotValidHandler() bool {
-	fmt.Println("NotValidHandler")
-	return false
+	return !c.validCard
 }
 
 // ValidCardHandler :
 func (c *Card) ValidCardHandler() bool {
-	fmt.Println("ValidCardHandler")
-	return true
+	return c.validCard
 }
 
 // PrintNotValidHandler :
 func (c *Card) PrintNotValidHandler() bool {
-	fmt.Println("PrintNotValidHandler")
-	return false
+	logger.Warnf("======== ### Card (%v) is not valid Card ### ========", c.ID)
+	return true
 }
 
 // ShowPinScreenHandler :
 func (c *Card) ShowPinScreenHandler() bool {
-	fmt.Println("ShowPinScreenHandler")
 	return true
 }
 
 // ValidatePinHandler :
 func (c *Card) ValidatePinHandler() bool {
-	fmt.Println("ValidatePinHandler")
-	return true
+	return c.InputPin != ""
 }
 
 // ValidPinHandler :
 func (c *Card) ValidPinHandler() bool {
-	fmt.Println("ValidPinHandler")
-	return true
+	return c.password == c.InputPin
 }
 
 // InValidPinHandler :
 func (c *Card) InValidPinHandler() bool {
-	fmt.Println("InValidPinHandler")
-	return false
+	return c.password != c.InputPin
 }
 
 // ChooseActionHandler :
 func (c *Card) ChooseActionHandler() bool {
-	fmt.Println("ChooseActionHandler")
-	return true
-}
-
-// ChooseMoneyHandler :
-func (c *Card) ChooseMoneyHandler() bool {
-	fmt.Println("ChooseMoneyHandler")
 	return true
 }
 
 // ShowAccountBalanceHandler :
 func (c *Card) ShowAccountBalanceHandler() bool {
-	fmt.Println("ShowAccountBalanceHandler")
-	return true
-}
-
-// ShowMoneyScreenHandler :
-func (c *Card) ShowMoneyScreenHandler() bool {
-	fmt.Println("ShowMoneyScreenHandler")
+	logger.Warnf("======== ### Card (%v) Balance is (%v) ### ========", c.ID, c.GetBalance())
 	return true
 }
 
 // SufficientFundHandler :
 func (c *Card) SufficientFundHandler() bool {
-	fmt.Println("SufficientFundHandler")
-	return true
-}
-
-// RelaseMoneyHandler :
-func (c *Card) RelaseMoneyHandler() bool {
-	fmt.Println("RelaseMoneyHandler")
+	if c.RequestFund <= 0 {
+		return false
+	}
+	if c.RequestFund > c.balance {
+		logger.Warnf("======== ### Card (%v) Requested Fund (%v) is insufficient, Balance is (%v) ### ========", c.ID, c.RequestFund, c.GetBalance())
+		c.RequestFund = 0
+		return false
+	}
+	c.balance -= c.RequestFund
+	logger.Warnf("======== ### Card (%v) Release Fund (%v), Balance is (%v) ### ========", c.ID, c.RequestFund, c.GetBalance())
+	c.RequestFund = 0
 	return true
 }
 
 // EndHandler :
 func (c *Card) EndHandler() bool {
-	fmt.Println("EndHandler")
+	logger.Warnf("======== ### Card (%v) Process has been ended ### ========", c.ID)
 	return true
 }

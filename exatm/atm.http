@@ -1,0 +1,107 @@
+#########################################
+#                   ATM                 #
+#########################################
+
+
+### list atm
+GET http://localhost:7070/atm/all_cards
+Content-Type: application/json
+
+### ATM Change State
+GET http://localhost:7070/atm/available_states/card1
+Content-Type: application/json
+
+### initialize ATM
+POST http://localhost:7070/atm/initialize
+Content-Type: application/json
+
+{
+    "id": "card1",
+    "state": "insertCard",
+    "password": "123",
+    "Balance": 1000
+}
+
+
+### Vehicle Change battery
+POST http://localhost:7070/atm/insert_pin_Code
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "password" : "123"
+}
+
+### atm Change State
+POST http://localhost:7070/atm/change_state
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "state" : "chooseMoney",
+    "user": 0
+}
+
+### Vehicle Change battery
+POST http://localhost:7070/atm/request_fund
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "request_fund" : 20
+}
+
+### initialize ATM
+POST http://localhost:7070/atm/initialize
+Content-Type: application/json
+
+{
+    "id": "invalid-Card",
+    "state": "insertCard",
+    "password": "123",
+    "Balance": 1000
+}
+
+
+### atm Change State
+POST http://localhost:7070/atm/change_state
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "state" : "showAccountBalance",
+    "user": 0
+}
+
+### atm Change State
+POST http://localhost:7070/atm/change_state
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "state" : "chooseAction",
+    "user": 0
+}
+
+### atm Change State
+POST http://localhost:7070/atm/change_state
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "state" : "end",
+    "user": 0
+}
+
+
+
+
+### atm Change State
+POST http://localhost:7070/atm/change_state
+Content-Type: application/json
+
+{
+    "id" : "card1",
+    "state" : "sufficientFund",
+    "user": 0
+}

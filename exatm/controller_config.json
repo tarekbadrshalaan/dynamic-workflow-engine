@@ -101,7 +101,7 @@
                 {
                     "name": "validatePin",
                     "function": "validatePinHandler",
-                    "auto_run": false,
+                    "auto_run": true,
                     "users": [
                         "User",
                         "Hunter",
@@ -177,7 +177,7 @@
             "available_states": [
                 {
                     "name": "chooseMoney",
-                    "function": "chooseMoneyHandler",
+                    "function": "voidHandler",
                     "auto_run": false,
                     "users": [
                         "User",
@@ -201,22 +201,6 @@
                     "name": "end",
                     "function": "endHandler",
                     "auto_run": false,
-                    "users": [
-                        "User",
-                        "Hunter",
-                        "Admin",
-                        "System"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "chooseMoney",
-            "available_states": [
-                {
-                    "name": "showMoneyScreen",
-                    "function": "showMoneyScreenHandler",
-                    "auto_run": true,
                     "users": [
                         "User",
                         "Hunter",
@@ -254,12 +238,12 @@
             ]
         },
         {
-            "name": "showMoneyScreen",
+            "name": "chooseMoney",
             "available_states": [
                 {
                     "name": "sufficientFund",
                     "function": "sufficientFundHandler",
-                    "auto_run": false,
+                    "auto_run": true,
                     "users": [
                         "User",
                         "Hunter",
@@ -282,35 +266,6 @@
         },
         {
             "name": "sufficientFund",
-            "available_states": [
-                {
-                    "name": "relaseMoney",
-                    "function": "relaseMoneyHandler",
-                    "auto_run": true,
-                    "priority": 0,
-                    "users": [
-                        "User",
-                        "Hunter",
-                        "Admin",
-                        "System"
-                    ]
-                },
-                {
-                    "name": "showMoneyScreen",
-                    "function": "showMoneyScreenHandler",
-                    "auto_run": true,
-                    "priority": 1,
-                    "users": [
-                        "User",
-                        "Hunter",
-                        "Admin",
-                        "System"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "relaseMoney",
             "available_states": [
                 {
                     "name": "chooseAction",

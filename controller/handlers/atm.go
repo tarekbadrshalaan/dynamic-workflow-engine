@@ -126,20 +126,6 @@ func ChooseActionHandler(obj interface{}) bool {
 	return v.ChooseActionHandler()
 }
 
-// IChooseMoneyHandler :
-type IChooseMoneyHandler interface {
-	ChooseMoneyHandler() bool
-}
-
-// ChooseMoneyHandler :
-func ChooseMoneyHandler(obj interface{}) bool {
-	v, ok := obj.(IChooseMoneyHandler)
-	if !ok {
-		return false
-	}
-	return v.ChooseMoneyHandler()
-}
-
 // IShowAccountBalanceHandler :
 type IShowAccountBalanceHandler interface {
 	ShowAccountBalanceHandler() bool
@@ -154,20 +140,6 @@ func ShowAccountBalanceHandler(obj interface{}) bool {
 	return v.ShowAccountBalanceHandler()
 }
 
-// IShowMoneyScreenHandler :
-type IShowMoneyScreenHandler interface {
-	ShowMoneyScreenHandler() bool
-}
-
-// ShowMoneyScreenHandler :
-func ShowMoneyScreenHandler(obj interface{}) bool {
-	v, ok := obj.(IShowMoneyScreenHandler)
-	if !ok {
-		return false
-	}
-	return v.ShowMoneyScreenHandler()
-}
-
 // ISufficientFundHandler :
 type ISufficientFundHandler interface {
 	SufficientFundHandler() bool
@@ -180,20 +152,6 @@ func SufficientFundHandler(obj interface{}) bool {
 		return false
 	}
 	return v.SufficientFundHandler()
-}
-
-// IRelaseMoneyHandler :
-type IRelaseMoneyHandler interface {
-	RelaseMoneyHandler() bool
-}
-
-// RelaseMoneyHandler :
-func RelaseMoneyHandler(obj interface{}) bool {
-	v, ok := obj.(IRelaseMoneyHandler)
-	if !ok {
-		return false
-	}
-	return v.RelaseMoneyHandler()
 }
 
 // IEndHandler :

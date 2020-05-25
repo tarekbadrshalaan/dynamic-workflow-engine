@@ -5,8 +5,7 @@ insertpincode -> chooseaction
 chooseaction -> chooseMoney, showaccountbalance, end
 showaccountbalance -> chooseaction
 chooseMoney -> sufficientFund 
-sufficientFund -> chooseaction, relaseMoney
-relaseMoney -> chooseaction
+sufficientFund -> chooseaction
 
 ---
 
@@ -20,8 +19,6 @@ validatePin -> (validPin, true), (inValidPin, true)
 inValidPin -> (showPinScreen, true)
 validPin -> (chooseAction, true)
 chooseAction -> (chooseMoney, false), (showAccountBalance, false), (end,false)
-chooseMoney -> (showMoneyScreen, true)
 showAccountBalance -> (chooseAction, false),(end, false)
-showMoneyScreen -> (sufficientFund, false) (end, false)
-sufficientFund -> (relaseMoney, true), (showMoneyScreen, true)
-relaseMoney -> (chooseAction, true)
+chooseMoney -> (sufficientFund, false) (end, false)
+sufficientFund -> (chooseAction, true)

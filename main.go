@@ -19,8 +19,8 @@ func main() {
 
 	/* controller initialize start */
 	c := &controller.Configuration{}
-	// config.Configuration("exatm/controller_config.json", c)
-	config.Configuration("exvehicle/controller_config.json", c)
+	config.Configuration("exatm/controller_config.json", c)
+	// config.Configuration("exvehicle/controller_config.json", c)
 	err := controller.BuildStates(c)
 	if err != nil {
 		logger.Fatal(err)

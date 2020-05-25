@@ -26,9 +26,9 @@ var Vehicles = struct {
 type VehicleAPI struct {
 	ID                string   `json:"id"`
 	State             string   `json:"state"`
+	AvailableStates   []string `json:"available_states"`
 	BatteryPercentage int      `json:"battery_percentage"`
 	User              int      `json:"user"`
-	AvailableStates   []string `json:"available_states"`
 }
 
 // ConfigVehicleRouter :
@@ -119,8 +119,8 @@ func changeBatteryVehicle(w http.ResponseWriter, r *http.Request, ps httprouter.
 		helper.WriteResponseError(w, err, http.StatusBadRequest)
 		return
 	}
-	dbv, ok := Vehicles.list[v.ID]
 
+	dbv, ok := Vehicles.list[v.ID]
 	if !ok {
 		msg := fmt.Errorf("Can’t find Vehicle with Id (%v)", v.ID)
 		logger.Error(msg)
