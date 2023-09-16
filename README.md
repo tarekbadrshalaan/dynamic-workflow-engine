@@ -1,161 +1,116 @@
-# dynamic-workflow-engine (DWE)
-dynamic workflow engine
+# Dynamic Workflow Engine (DWE) 🚀
 
+## Introduction
+Dynamic Workflow Engine (DWE) is a Proof-of-Concept (PoC) implemented in Go, designed to provide a highly configurable workflow engine. You can easily tailor DWE for various use-cases, as illustrated in the `exATM` and `exVehicle` directories.
+
+## Features 🌟
+- **Controller**: The core package for workflow orchestration.
+- **API**: Exposes functionalities for easy integration.
+- **Config**: Handles configuration via JSON files.
+- **Logger**: Provides three types of logging implementations.
+- **Examples**: Includes example implementations like `exATM` and `exVehicle`.
+
+## Getting Started 🛠️
+
+### Installation
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Run `go install` to install the necessary packages.
+
+### Usage
+1. Import the `controller` package into your soft real-time API solution.
+2. Initialize the workflow with your desired configurations.
+
+```go
+confStateList := &controller.Configuration{}
+config.Configuration("controller_config.json", confStateList)
+err := controller.BuildStates(confStateList)
+if err != nil {
+    logger.Fatal(err)
+}
 ```
-DWE is a POC of creating dynamic workflow engine in golang,
-basically DWE could implement any workflow see (exatm, exvehicle  directories).
-```
 
-## Components 
+## Workflow States 🔄
 
-- **controller** tha main package to handle workflow and test package.
-- **exatm** example using atm system.
-- **exvehicle** example using vehicle system.
-- **api** API interface to use the engine.
-- **config** simple package to handle read configuration from json file.
-- **logger** logging service include 3 type of logger implementation.
-- **playground** external package to use package controller, and main package use *playground* to run.
+### Defining States
+Create a JSON file following the schema below:
 
-
-## How to use **DWE**
-
-DWE provide you with nice *controller* package to control your workflow.
-
-so basically you need to extract *controller* package and use it in your soft real­time API solution.
-
-
-### **Status flow** strategy
-```
-dwf status flow built to be dynamic and configurable, that's mean your work flow can be increase, decrease ,change status position without touch the code.
-```
-- `Status` is the base unit to the flow system.
-- Each `status` contains it's name and next available status.
-- To move from `status` to next available status, you should go throw two conditions 
-    - **Authority Condition** : each user in the system has some status he can go throw them, and this Authorization roles is configurable throw status configuration.
-    - **Function Condition** : to go from state to available state the authorized user go throw condition function which simply allow or disallow change state to happen.
-
-- to set `status` flow, you have to path
-    - build your own flow in a json file and pass the file path to `BuildStates` e.g.
-        ```
-        	confstateList := &controller.Configuration{}
-            config.Configuration("controller_config.json", confstateList)
-            err := controller.BuildStates(confstateList)
-            if err != nil {
-                logger.Fatal(err)
-            }
-        ```
-
-
-### build your own **status flow**
-
-- create json file with this schema
-```
+```json
 {
     "states_list": [
         {
-            "name": "state1", // 'state1' is an example name 
-            "available_states": [ // array of next states
+            "name": "state1", // 'state1' is an example name.
+            "available_states": [ // Array of next possible states.
                 {
-                    "name": "state2", // 'state2' is an example name 
-                    "function": "HANDLER-NAME", // this value should be one of the choices provided by the system.
-                    "auto_run": true, // boolen to set if this state running by the system or should be executed by the user. 
-                    "priority": 0, // value to sort next states, if there is many available states can be setted in the same time
-                    "users": [ // set the Authority condition: which type of user can change to this state.
-                        "User",// there is only 5 hard coded type in the system.
+                    "name": "state2", // 'state2' is an example name.
+                    "function": "HANDLER-NAME", // This value should be one of the options provided by the system.
+                    "auto_run": true, // Boolean to indicate whether this state is automatically executed by the system or needs user intervention.
+                    "priority": 0, // Value to sort next states; useful if multiple states can be set simultaneously.
+                    "users": [ // Defines the Authority Condition: which types of users can transition to this state.
+                        "User", // The system has only 5 hardcoded user types.
                         "Hunter",
                         "Admin",
                         "System",
                         "Vehicle"
-
                     ]
                 },
                 {
-                    //... add another available state.
+                    // ... Add another available state.
                 }
             ]
         },
-        // add another status ... 
+        // Add another status...
         {
-
             "name": "state2",
             "available_states": [
                 {
                     // ...
                 }
             ]
-        }, 
+        }
     ]
 }
 ```
-### Available **Handlers** in the system 
-1. `voidHandler` : basic handler accept to go to the next state without conditions
 
-2. `batteryLowHandler` : accept to go to the next state if the battery is less then 20%
+### Status Flow Strategy
+DWF is built to be dynamic, allowing you to modify the workflow without changing the codebase.
 
-3. `after930PM` : accept to go to the next state if the local time after 9:30 pm
+#### Conditions
+- **Authority Condition**: User roles determine the accessible states.
+- **Functional Condition**: Custom logic can further restrict state transitions.
 
-4. `after48H` : accept to go to the next state if there is no change in vehicle state 48 hour ago 
+## Handlers 🎛️
+1. **voidHandler**: No conditions.
+2. **batteryLowHandler**: Battery < 20%.
+3. **after930PM**: After 9:30 PM local time.
+4. **after48H**: No state change for 48 hours.
 
-#### Note: feel free to ask for other handler/logic the dynamic architecture allow us to change in a very simple way  
+## User Roles 👥
+*Note: User roles are hardcoded and require a code update to modify.*
 
-### Available **Users** in the system 
+1. **User**
+2. **Hunter**
+3. **Admin**
+4. **Vehicle**
+5. **System**
+
+## Examples 📚
+Refer to the `exvehicle` package for a detailed example involving a vehicle workflow.
+
+### Vehicle Struct
+```go
+type Vehicle struct {
+    ID string
+}
 ```
-NOTE: the currant users system is hard coded so it need developer/code updated to add or remove user type
-```
-1. `User`: basic user, and has no exception features
 
-2. `Hunter`: basic user, and has no exception features
+### Public Methods
+- `InitializeVehicle(id, state string, batteryPercentage int) (*Vehicle, error)`
+- `SetBatteryPercentage(newBatteryPercentage int)`
+- `State() string`
+- `AvailableStates() (string, []string)`
+- `AdminForceChangeState(nextState string, userType int) error`
+- `ChangeState(nextState string, userType int) error`
 
-3. `Admin`: has the basic features, plus able to use `AdminForceChangeState` method
-
-4. `Vehicle`: basic user, and has no exception features, we created it to mention requests from vehicle itself 
-
-5. `System`: basic user, we created it to mention requests from automation system.
-
-## Examples : 
-
-### **exvehicle** package
-
-*exvehicle* package provide you with **Vehicle** struct which is our base unit to build the workflow
-
-- Vehicle struct contain only one public property which is `ID`
-    ```
-    type Vehicle struct {
-    	ID                   string
-    }
-    ```
-- to Initialize new Vehicle use `InitializeVehicle` function with input about currant `state` of the vehicle and `battery Percentage` in return you will get new `Vehicle` instances or `error`
-    ```
-    InitializeVehicle(id, state string, batteryPercentage int) (*Vehicle, error)
-    ```
-- `Vehicle` instances provide you 5 public methods to control your instance
-    
-    - `SetBatteryPercentage` to reset battery percentage of your vehicle with no return e.g.
-    ```
-    yourvehicle.SetBatteryPercentage(newBatteryPercentage int)
-    ```
-    
-    - `State` to get the currant state of your vehicle e.g.
-    ```
-    yourvehicle.State() currant_state string
-    ```
-    
-    - `AvailableStates` to get the currant state and available next state of your vehicle e.g.
-    ```
-    yourvehicle.AvailableStates()(currant_state string, AvailableStates []string)
-    ```
-    
-    - `AdminForceChangeState` to be able to force state change from admin with error in return e.g.
-    ```
-    // WARNING: this method will not check the user (authorization/session)
-    // the permission check should be done before call this method
-
-    yourvehicle.AdminForceChangeState(nextState string, usertype int) error
-    ```
-    
-    - `ChangeState` to change your vehicle state, but you have to follow th role that has been set in the workflow core **StateList** e.g.
-    ```
-    yourvehicle.ChangeState(nextState string, usertype int) error
-    ```
-
-each vehicle contain **state** and this state controlled by workflow has been set before in the system
+## Contributions 🤝
+Feel free to open issues or submit PRs for additional handlers or improvements.
